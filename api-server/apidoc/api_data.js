@@ -622,7 +622,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "name",
-            "description": "<p>Component name.</p>"
+            "description": "<p>Layer name.</p>"
           },
           {
             "group": "Parameter",
@@ -643,7 +643,7 @@ define({ "api": [
             "type": "Number",
             "optional": false,
             "field": "order",
-            "description": "<p>Indicates the position where the suprlay this with respect to other.</p>"
+            "description": "<p>Indicates the position where the layer this with respect to other.</p>"
           }
         ]
       }
@@ -734,7 +734,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "name",
-            "description": "<p>Component name.</p>"
+            "description": "<p>Layer name.</p>"
           },
           {
             "group": "Parameter",
@@ -755,7 +755,7 @@ define({ "api": [
             "type": "Number",
             "optional": false,
             "field": "order",
-            "description": "<p>Indicates the position where the suprlay this with respect to other.</p>"
+            "description": "<p>Indicates the position where the layer this with respect to other.</p>"
           }
         ]
       }
@@ -792,7 +792,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "logo",
-            "description": "<p>platform logo.</p>"
+            "description": "<p>Platform logo.</p>"
           },
           {
             "group": "Parameter",
