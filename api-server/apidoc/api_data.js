@@ -327,21 +327,21 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "role",
-            "description": "<p>xxxx.</p>"
+            "description": "<p>Developer role.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "scope",
-            "description": "<p>xxxxx.</p>"
+            "description": "<p>Range in plugin.</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
             "optional": false,
             "field": "percnt",
-            "description": "<p>xxxx.</p>"
+            "description": "<p>Percentage that has developed. .</p>"
           }
         ]
       }
@@ -539,21 +539,21 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "role",
-            "description": "<p>xxxx.</p>"
+            "description": "<p>Developer role.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "scope",
-            "description": "<p>xxxxx.</p>"
+            "description": "<p>Range in plugin.</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
             "optional": false,
             "field": "percnt",
-            "description": "<p>xxxx.</p>"
+            "description": "<p>Percentage that has developed.</p>"
           }
         ]
       }
