@@ -219,7 +219,41 @@ exports.insOrUpdCompDev = function (_comp_id, _dev_id, role, scope, percnt, call
                     return callback(null, res_ins);
                 });
             }
+
+              /*Erick solucion
+                if (err_compDev) {
+                return callback(err_compDev, null);
+            } else if (res_compDev) {
+                    var set_obj = {};
+                if (percnt !== res_compDev.percnt) {
+                    set_obj.percnt = percnt;
+                    res_compDev.percnt = percnt;
+                }
+                if (Object.keys(set_obj).length > 0) {
+                    compDevSrv.updateCompDevById(res_compDev._id, set_obj, function (err_upd, res_upd) {
+                        if (err_upd) {
+                            return callback(err_upd, null);
+                        }
+                        return callback(null, res_compDev);
+                    });
+                } else {
+                    return callback(null, res_compDev);
+                }
+            } else {
+                var compDev = new CompDevMdl(_comp_id, _dev_id, role, scope, percnt);
+                compDevSrv.insertCompDev(compDev, function (err_ins, res_ins) {
+                    if (err_ins) {
+                        return callback(err_ins, null);
+                    }
+                    return callback(null, res_ins);
+                });
+            }
+             return callback(null, null);
+     
+              */
         });
+
+    
     } catch (err) {
         return callback(err, null);
     }
