@@ -336,7 +336,7 @@ describe("COMP",function(){
 
   });
 
-  it("#POST addCompDev 404"/*,function(done){
+  it("#POST addCompDev 404",function(done){
     var dataCompDev = dataHelper.generateDataCompDev();
     server
     .post(pathTest+"/"+mongoose.Types.ObjectId().toString()+"/comp-devs")
@@ -350,7 +350,7 @@ describe("COMP",function(){
       return done();
     });
 
-  }*/);
+  });
 
   it("#PUT uptCompDev",function(done){
 
