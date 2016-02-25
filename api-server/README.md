@@ -1,4 +1,4 @@
-![alt text](https://github.com/Fermat-ORG/media-kit/blob/master/Readme%20Image/Fermat%20Logotype/Fermat_Logo_3D.png "Fermat Logo")
+![alt text](https://github.com/bitDubai/media-kit/blob/master/MediaKit/Fermat%20Branding/Fermat%20Logotype/Fermat_Logo_3D.png "Fermat Logo")
 
 # fermat-org server
 
@@ -115,6 +115,24 @@ Login with
 
 * Username - admin
 * Password - admin 
+
+###Installing Apidoc
+
+apiDoc creates a documentation from API annotations in your source code.
+
+* To install and run apidoc follow these steps:
+
+* Open the terminal and go to the api-server project folder.
+
+* Type the following command in the terminal.
+```bash
+ sudo npm install apidoc -g
+```
+* To generate the html pages of documentation run the following command:
+```bash
+ sh generate_apidoc.sh
+```
+The documentation is generated in the folder api-server/apidoc. For more information visit apidoc tool http://apidocjs.com/
 
 ###Running the project (api-server)
 

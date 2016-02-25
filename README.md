@@ -15,6 +15,7 @@ To work on the server side the following programs must be installed:
 * Node.js
 * MongoDB
 * RockMongo (a MongoDB administration tool)
+* apidoc (documentation tools)
 
 For instructions on installing these programs go to the guide [api-server](api-server/README.md).
 

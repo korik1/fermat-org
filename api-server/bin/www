@@ -11,7 +11,7 @@ var config = require('../config');
 var db = require('../db');
 var app = require('../app');
 var http = require('http');
-var update = require('../update');
+//var update = require('../update');
 
 winston.log('info', 'Setting %s environment', config.env);
 

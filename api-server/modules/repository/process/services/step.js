@@ -7,15 +7,12 @@ var procSch = require('../schemas/proc');
 var compMdl = require('../../component/models/comp');
 var compSch = require('../../component/schemas/comp');
 var compSrv = require('../../component/services/comp');
-
 /**
  * [stepDao description]
  *
  * @type {Dao}
  */
-var stepDao = new Dao('Step', stepSch, stepMdl, 'Proc', procSch, procMdl,
-    'Comp', compSch, compMdl);
-
+var stepDao = new Dao('Step', stepSch, stepMdl, 'Proc', procSch, procMdl, 'Comp', compSch, compMdl);
 /**
  * [insertStep description]
  *
@@ -27,12 +24,11 @@ var stepDao = new Dao('Step', stepSch, stepMdl, 'Proc', procSch, procMdl,
  * @return {[type]}   [description]
  */
 exports.insertStep = function (step_mdl, callback) {
-    'use strict';
-    stepDao.insertSchema(step_mdl, function (err, step) {
-        callback(err, step);
-    });
+	'use strict';
+	stepDao.insertSchema(step_mdl, function (err, step) {
+		callback(err, step);
+	});
 };
-
 /**
  * [findStepById description]
  *
@@ -44,12 +40,11 @@ exports.insertStep = function (step_mdl, callback) {
  * @return {[type]}     [description]
  */
 exports.findStepById = function (_id, callback) {
-    'use strict';
-    stepDao.findSchemaById(_id, function (err, step) {
-        callback(err, step);
-    });
+	'use strict';
+	stepDao.findSchemaById(_id, function (err, step) {
+		callback(err, step);
+	});
 };
-
 /**
  * [findStep description]
  *
@@ -61,12 +56,11 @@ exports.findStepById = function (_id, callback) {
  * @return {[type]}   [description]
  */
 exports.findStep = function (query, callback) {
-    'use strict';
-    stepDao.findSchema(query, function (err, step) {
-        callback(err, step);
-    });
+	'use strict';
+	stepDao.findSchema(query, function (err, step) {
+		callback(err, step);
+	});
 };
-
 /**
  * [findSteps description]
  *
@@ -79,12 +73,11 @@ exports.findStep = function (query, callback) {
  * @return {[type]}   [description]
  */
 exports.findSteps = function (query, sort, callback) {
-    'use strict';
-    stepDao.findAllSchemaLst(query, sort, function (err, step) {
-        callback(err, step);
-    });
+	'use strict';
+	stepDao.findAllSchemaLst(query, sort, function (err, step) {
+		callback(err, step);
+	});
 };
-
 /**
  * [findAllSteps description]
  *
@@ -97,34 +90,32 @@ exports.findSteps = function (query, sort, callback) {
  * @return {[type]}     [description]
  */
 exports.findAllSteps = function (query, order, callback) {
-    'use strict';
-    stepDao.findAllSchemaLst(query, order, function (err, steps) {
-        if (err) {
-            callback(err, null);
-        } else {
-            var _steps = [];
-
-            var loopSteps = function (i) {
-                if (i < steps.length) {
-                    var _step = steps[i];
-                    compSrv.findAndPopulateCompById(_step._comp_id, '_platfrm_id _suprlay_id _layer_id', function (err, comp) {
-                        if (err) {
-                            loopSteps(++i);
-                        } else {
-                            _step.comp = comp;
-                            _steps.push(_step);
-                            loopSteps(++i);
-                        }
-                    });
-                } else {
-                    callback(null, _steps);
-                }
-            };
-            loopSteps(0);
-        }
-    });
+	'use strict';
+	stepDao.findAllSchemaLst(query, order, function (err, steps) {
+		if (err) {
+			callback(err, null);
+		} else {
+			var _steps = [];
+			var loopSteps = function (i) {
+				if (i < steps.length) {
+					var _step = steps[i];
+					compSrv.findAndPopulateCompById(_step._comp_id, '_platfrm_id _suprlay_id _layer_id', function (err, comp) {
+						if (err) {
+							loopSteps(++i);
+						} else {
+							_step.comp = comp;
+							_steps.push(_step);
+							loopSteps(++i);
+						}
+					});
+				} else {
+					callback(null, _steps);
+				}
+			};
+			loopSteps(0);
+		}
+	});
 };
-
 /**
  * [updateStepById description]
  *
@@ -137,15 +128,14 @@ exports.findAllSteps = function (query, order, callback) {
  * @return {[type]}       [description]
  */
 exports.updateStepById = function (_id, set, callback) {
-    'use strict';
-    set.upd_at = new mongoose.Types.ObjectId();
-    stepDao.updateSchema({
-        _id: _id
-    }, set, {}, function (err, step) {
-        callback(err, step);
-    });
+	'use strict';
+	set.upd_at = new mongoose.Types.ObjectId();
+	stepDao.updateSchema({
+		_id: _id
+	}, set, {}, function (err, step) {
+		callback(err, step);
+	});
 };
-
 /**
  * [findAndPopulateAllSteps description]
  *
@@ -159,12 +149,11 @@ exports.updateStepById = function (_id, set, callback) {
  * @return {[type]}                [description]
  */
 exports.findAndPopulateAllSteps = function (query, sort, path, callback) {
-    'use strict';
-    stepDao.findAndPopulateAllSchemaLst(query, sort, path, function (err, step) {
-        callback(err, step);
-    });
+	'use strict';
+	stepDao.findAndPopulateAllSchemaLst(query, sort, path, function (err, step) {
+		callback(err, step);
+	});
 };
-
 /**
  * [delAllSteps description]
  *
@@ -175,12 +164,11 @@ exports.findAndPopulateAllSteps = function (query, sort, path, callback) {
  * @return {[type]}    [description]
  */
 exports.delAllSteps = function (callback) {
-    'use strict';
-    stepDao.delAllSchemas(function (err, comp) {
-        callback(err, comp);
-    });
+	'use strict';
+	stepDao.delAllSchemas(function (err, step) {
+		callback(err, step);
+	});
 };
-
 /**
  * [delStepById description]
  *
@@ -191,12 +179,11 @@ exports.delAllSteps = function (callback) {
  * @return {[type]}    [description]
  */
 exports.delStepById = function (_id, callback) {
-    'use strict';
-    stepDao.delSchemaById(_id, function (err, comp) {
-        callback(err, comp);
-    });
+	'use strict';
+	stepDao.delSchemaById(_id, function (err, step) {
+		callback(err, step);
+	});
 };
-
 /**
  * [updateSteps description]
  *
@@ -209,11 +196,11 @@ exports.delStepById = function (_id, callback) {
  * @return {[type]}    [description]
  */
 exports.updateSteps = function (query, set, callback) {
-    'use strict';
-    set.upd_at = new mongoose.Types.ObjectId();
-    stepDao.updateSchema(query, set, {
-        multi: true
-    }, function (err, step) {
-        callback(err, step);
-    });
+	'use strict';
+	set.upd_at = new mongoose.Types.ObjectId();
+	stepDao.updateSchema(query, set, {
+		multi: true
+	}, function (err, step) {
+		callback(err, step);
+	});
 };
