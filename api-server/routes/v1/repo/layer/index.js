@@ -66,9 +66,15 @@ var release = function (req) {
  * @api {post} /v1/repo/usrs/:usr_id/layers add layer
  * @apiVersion 0.0.1
  * @apiName AddLayer
+<<<<<<< HEAD
  * @apiParam {String} name    	Layer name.
  * @apiParam {String} lang    	{java, javascript, c++, c#, etc}.
  * @apiParam {String} suprlay	superlayer code (optional).
+=======
+ * @apiParam {String} name    Layer name.
+ * @apiParam {String} lang   Programming language.
+ * @apiParam {String} suprlay    Supraly name.
+>>>>>>> 0a761e81343359954052a5a6ce99531e1628d12d
  * @apiParam {Number} order Indicates the position where the layer this with respect to other.
  * @apiGroup Repo-Layer
  * @apiDescription Add a layer to the architecture of fermat.
@@ -159,8 +165,13 @@ router.get('/:layer_id', function (req, res, next) {
  * @apiGroup Repo-Layer
  * @apiParam {ObjectId} layer_id Represents the identifier of the layer
  * @apiParam {String} name    Layer name.
+<<<<<<< HEAD
  * @apiParam {String} lang    xxxxx.
  * @apiParam {String} suprlay    xxxxx.
+=======
+ * @apiParam {String} lang   Programming language.
+ * @apiParam {String} suprlay    Supraly name.
+>>>>>>> 0a761e81343359954052a5a6ce99531e1628d12d
  * @apiParam {Number} order Indicates the position where the layer this with respect to other.
  * @apiDescription Update layer to the architecture of fermat.
  */

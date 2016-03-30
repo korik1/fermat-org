@@ -136,7 +136,10 @@ router.get('/', function (req, res, next) {
  * @apiParam {Date} reached    True date of completion.
  * @apiGroup Repo-Comp
  * @apiDescription updates the lifecycle of a component of the architecture fermat.
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a761e81343359954052a5a6ce99531e1628d12d
  */
 router.put('/:comp_id/life-cicles/:life_cicle_id', function (req, res, next) {
 	'use strict';
@@ -174,9 +177,10 @@ router.put('/:comp_id/life-cicles/:life_cicle_id', function (req, res, next) {
  * @apiName AddCompDev
  * @apiParam {ObjectId} comp_id    Unique identifier of the component.
  * @apiParam {ObjectId} dev_id    Unique identifier of the developer.
- * @apiParam {String} role    xxxx.
- * @apiParam {String} scope    xxxxx.
- * @apiParam {Number} percnt    xxxx.
+ * @apiParam {String} role    Developer role.
+ * @apiParam {String} scope    Range in plugin.
+ * @apiParam {Number} percnt    Percentage that has developed.
+.
  * @apiGroup Repo-Comp
  * @apiDescription Add component to developer.
  */
@@ -217,9 +221,9 @@ router.post('/:comp_id/comp-devs', function (req, res, next) {
  * @apiName UptCompDev
  * @apiParam {ObjectId} comp_id    Unique identifier of the component.
  * @apiParam {ObjectId} dev_id    Unique identifier of the developer.
- * @apiParam {String} role    xxxx.
- * @apiParam {String} scope    xxxxx.
- * @apiParam {Number} percnt    xxxx.
+ * @apiParam {String} role    Developer role.
+ * @apiParam {String} scope   Range in plugin.
+ * @apiParam {Number} percnt    Percentage that has developed.
  * @apiGroup Repo-Comp
  * @apiDescription Update component to developer.
  */

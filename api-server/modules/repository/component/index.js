@@ -165,6 +165,7 @@ exports.insOrUpdComp = function (_platfrm_id, _suprlay_id, _layer_id, name, type
  * @return {[type]}        [description]
  */
 exports.insOrUpdCompDev = function (_comp_id, _dev_id, role, scope, percnt, callback) {
+<<<<<<< HEAD
 	'use strict';
 	try {
 		var find_obj = {
@@ -223,6 +224,100 @@ exports.insOrUpdCompDev = function (_comp_id, _dev_id, role, scope, percnt, call
 	} catch (err) {
 		return callback(err, null);
 	}
+=======
+    'use strict';
+    try {
+        var find_obj = {
+            '$and': []
+        };
+        if (_comp_id) {
+            find_obj['$and'].push({
+                '_comp_id': _comp_id
+            });
+        }
+        if (_dev_id) {
+            find_obj['$and'].push({
+                '_dev_id': _dev_id
+            });
+        }
+        if (role) {
+            find_obj['$and'].push({
+                'role': role
+            });
+        }
+        if (scope) {
+            find_obj['$and'].push({
+                'scope': scope
+            });
+        }
+        compDevSrv.findCompDev(find_obj, function (err_compDev, res_compDev) {
+            if (err_compDev) {
+                return callback(err_compDev, null);
+            }
+            if (res_compDev) {
+                var set_obj = {};
+                if (percnt !== res_compDev.percnt) {
+                    set_obj.percnt = percnt;
+                    res_compDev.percnt = percnt;
+                }
+                if (Object.keys(set_obj).length > 0) {
+                    compDevSrv.updateCompDevById(res_compDev._id, set_obj, function (err_upd, res_upd) {
+                        if (err_upd) {
+                            return callback(err_upd, null);
+                        }
+                        return callback(null, res_compDev);
+                    });
+                } else {
+                    return callback(null, res_compDev);
+                }
+            } else {
+                var compDev = new CompDevMdl(_comp_id, _dev_id, role, scope, percnt);
+                compDevSrv.insertCompDev(compDev, function (err_ins, res_ins) {
+                    if (err_ins) {
+                        return callback(err_ins, null);
+                    }
+                    return callback(null, res_ins);
+                });
+            }
+
+              /*Erick solucion
+                if (err_compDev) {
+                return callback(err_compDev, null);
+            } else if (res_compDev) {
+                    var set_obj = {};
+                if (percnt !== res_compDev.percnt) {
+                    set_obj.percnt = percnt;
+                    res_compDev.percnt = percnt;
+                }
+                if (Object.keys(set_obj).length > 0) {
+                    compDevSrv.updateCompDevById(res_compDev._id, set_obj, function (err_upd, res_upd) {
+                        if (err_upd) {
+                            return callback(err_upd, null);
+                        }
+                        return callback(null, res_compDev);
+                    });
+                } else {
+                    return callback(null, res_compDev);
+                }
+            } else {
+                var compDev = new CompDevMdl(_comp_id, _dev_id, role, scope, percnt);
+                compDevSrv.insertCompDev(compDev, function (err_ins, res_ins) {
+                    if (err_ins) {
+                        return callback(err_ins, null);
+                    }
+                    return callback(null, res_ins);
+                });
+            }
+             return callback(null, null);
+     
+              */
+        });
+
+    
+    } catch (err) {
+        return callback(err, null);
+    }
+>>>>>>> 0a761e81343359954052a5a6ce99531e1628d12d
 };
 /**
  * [insOrUpdStatus description]
