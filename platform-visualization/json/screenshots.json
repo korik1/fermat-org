@@ -1,1 +1,101 @@
-{"CBP":{"Sub App":{"Crypto Customer Community":{"name":"Crypto Customer Community","screenshots":{"Screenshots_1":"images/wallet_screenshots/CBP/Sub App/Crypto Customer Community/1.png","Screenshots_2":"images/wallet_screenshots/CBP/Sub App/Crypto Customer Community/2.png","Screenshots_3":"images/wallet_screenshots/CBP/Sub App/Crypto Customer Community/3.png"}},"Crypto Customer Identity":{"name":"Crypto Customer Identity","screenshots":{"Screenshots_1":"images/wallet_screenshots/CBP/Sub App/Crypto Customer Identity/1.png","Screenshots_2":"images/wallet_screenshots/CBP/Sub App/Crypto Customer Identity/2.png"}}}},"CCP":{"Sub App":{"Intra Wallet User Community":{"name":"Intra Wallet User Community","screenshots":{"Screenshots_1":"images/wallet_screenshots/CCP/Sub App/Intra Wallet User Community/1.png","Screenshots_2":"images/wallet_screenshots/CCP/Sub App/Intra Wallet User Community/2.png","Screenshots_3":"images/wallet_screenshots/CCP/Sub App/Intra Wallet User Community/3.png"}},"Intra Wallet User Identity":{"name":"Intra Wallet User Identity","screenshots":{"Screenshots_1":"images/wallet_screenshots/CCP/Sub App/Intra Wallet User Identity/1.png","Screenshots_2":"images/wallet_screenshots/CCP/Sub App/Intra Wallet User Identity/2.png","Screenshots_3":"images/wallet_screenshots/CCP/Sub App/Intra Wallet User Identity/3.png","Screenshots_4":"images/wallet_screenshots/CCP/Sub App/Intra Wallet User Identity/4.png","Screenshots_5":"images/wallet_screenshots/CCP/Sub App/Intra Wallet User Identity/5.png"}}}},"WPD":{"Desktop":{"Wallet Manager":{"name":"Wallet Manager","screenshots":{"Screenshots_1":"images/wallet_screenshots/WPD/Desktop/Wallet Manager/1.png","Screenshots_2":"images/wallet_screenshots/WPD/Desktop/Wallet Manager/2.png","Screenshots_3":"images/wallet_screenshots/WPD/Desktop/Wallet Manager/3.png","Screenshots_4":"images/wallet_screenshots/WPD/Desktop/Wallet Manager/4.png"}}}}}
+{
+	"CBP": {
+		"Sub App": {
+			"Crypto Customer Community": {
+				"name" : "Crypto Customer Community",
+				"screenshots": {
+					"Screenshots_1" : "images/wallet_screenshots/CBP/Sub App/Crypto Customer Community/1.png",
+					"Screenshots_2" : "images/wallet_screenshots/CBP/Sub App/Crypto Customer Community/2.png",
+					"Screenshots_3" : "images/wallet_screenshots/CBP/Sub App/Crypto Customer Community/3.png"
+				}
+			},
+			"Crypto Customer Identity": {
+				"name" : "Crypto Customer Identity",
+				"screenshots": {
+					"Screenshots_1" : "images/wallet_screenshots/CBP/Sub App/Crypto Customer Identity/1.png",
+					"Screenshots_2" : "images/wallet_screenshots/CBP/Sub App/Crypto Customer Identity/2.png"
+				}
+			}
+		}
+	},
+
+	"CCP": {
+		"Sub App": {
+			"Intra Wallet User Community": {
+				"name" : "Intra Wallet User Community",
+				"screenshots": {
+					"Screenshots_1" : "images/wallet_screenshots/CCP/Sub App/Intra Wallet User Community/1.png",
+					"Screenshots_2" : "images/wallet_screenshots/CCP/Sub App/Intra Wallet User Community/2.png",
+					"Screenshots_3" : "images/wallet_screenshots/CCP/Sub App/Intra Wallet User Community/3.png"
+				}
+			},
+			"Intra Wallet User Identity": {
+				"name" : "Intra Wallet User Identity",
+				"screenshots": {
+					"Screenshots_1" : "images/wallet_screenshots/CCP/Sub App/Intra Wallet User Identity/1.png",
+					"Screenshots_2" : "images/wallet_screenshots/CCP/Sub App/Intra Wallet User Identity/2.png",
+					"Screenshots_3" : "images/wallet_screenshots/CCP/Sub App/Intra Wallet User Identity/3.png",
+					"Screenshots_4" : "images/wallet_screenshots/CCP/Sub App/Intra Wallet User Identity/4.png",
+					"Screenshots_5" : "images/wallet_screenshots/CCP/Sub App/Intra Wallet User Identity/5.png"
+				}
+			}
+		}
+	},
+
+	"DAP": {
+		"Sub App": {
+			"Asset Issuer Identity": {
+				"name" : "Asset Issuer Identity",
+				"screenshots": {
+					"Screenshots_1" : "images/wallet_screenshots/DAP/Sub App/Asset Issuer Identity/1.png"
+				}
+			},
+			"Asset User Community": {
+				"name" : "Asset User Community",
+				"screenshots": {
+					"Screenshots_1" : "images/wallet_screenshots/DAP/Sub App/Asset User Community/1.png"
+				}
+			},
+			"Asset User Identity": {
+				"name" : "Asset User Identity",
+				"screenshots": {
+					"Screenshots_1" : "images/wallet_screenshots/DAP/Sub App/Asset User Identity/1.png"
+				}
+			},
+			"Redeem Point Identity": {
+				"name" : "Redeem Point Identity",
+				"screenshots": {
+					"Screenshots_1" : "images/wallet_screenshots/DAP/Sub App/Redeem Point Identity/1.png"
+				}
+			}
+		},
+		"Wallet": {
+			"Assets User Wallet": {
+				"name" : "Assets User Wallet",
+				"screenshots": {
+					"Screenshots_1" : "images/wallet_screenshots/DAP/Wallet/Assets User Wallet/1.jpg"
+				}
+			},
+			"Redeem Point Wallet": {
+				"name" : "Redeem Point Wallet",
+				"screenshots": {
+					"Screenshots_1" : "images/wallet_screenshots/DAP/Wallet/Redeem Point Wallet/1.jpg"
+				}
+			}
+		}
+	},
+
+	"WPD": {
+		"Desktop": {
+			"Wallet Manager": {
+				"name" : "Wallet Manager",
+				"screenshots": {
+					"Screenshots_1" : "images/wallet_screenshots/WPD/Desktop/Wallet Manager/1.png",
+					"Screenshots_2" : "images/wallet_screenshots/WPD/Desktop/Wallet Manager/2.png",
+					"Screenshots_3" : "images/wallet_screenshots/WPD/Desktop/Wallet Manager/3.png",
+					"Screenshots_4" : "images/wallet_screenshots/WPD/Desktop/Wallet Manager/4.png"
+				}
+			}
+		}
+	}
+}

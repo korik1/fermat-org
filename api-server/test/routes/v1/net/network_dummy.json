@@ -1,0 +1,60 @@
+[{
+    "hash": "server0",
+    "type": "server",
+    "extra": {
+        "os": "linux",
+        "sub": "ubuntu"
+    },
+    "upd_at": "2015-12-23T17:01:01.366Z",
+    "chldrn": ["client1", "client2"]
+}, {
+    "hash": "client1",
+    "type": "client",
+    "extra": {
+        "os": "android kitkat",
+        "sub": "tablet"
+    },
+    "upd_at": "2015-12-23T17:01:01.366Z",
+    "chldrn": ["service0", "service1"]
+}, {
+    "hash": "client2",
+    "type": "client",
+    "extra": {
+        "os": "ios 7",
+        "sub": "phone"
+    },
+    "upd_at": "2015-12-23T17:01:01.366Z",
+    "chldrn": ["service2", "service3"]
+}, {
+    "hash": "service0",
+    "type": "service",
+    "extra": {
+        "sub": "network"
+    },
+    "upd_at": "2015-12-23T17:01:01.366Z",
+    "chldrn": []
+}, {
+    "hash": "service1",
+    "type": "service",
+    "extra": {
+        "sub": "listener"
+    },
+    "upd_at": "2015-12-23T17:01:01.366Z",
+    "chldrn": []
+}, {
+    "hash": "service2",
+    "type": "service",
+    "extra": {
+        "sub": "sender"
+    },
+    "upd_at": "2015-12-23T17:01:01.366Z",
+    "chldrn": []
+}, {
+    "hash": "service3",
+    "type": "service",
+    "extra": {
+        "sub": "network"
+    },
+    "upd_at": "2015-12-23T17:01:01.366Z",
+    "chldrn": []
+}]

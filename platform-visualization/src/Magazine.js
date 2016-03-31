@@ -47,11 +47,11 @@ function Magazine() {
      * Creates and starts all the functions for creating magazine.
      * @param {String} load Name of the magazine to create.
      */
-    this.init = function (load){
+    this.init = function(load){
 				
         LOAD = load;
 
-        if (load === 'book'){
+        if(load === 'book'){
 
             $.ajax({url: 'books/tableContent.html'}).done(function(pageHtml) {
 							
@@ -77,10 +77,10 @@ function Magazine() {
 
             coverPage(load);
 						
-            if (load === 'book')
+            if(load === 'book')
 				addTableContent();
 						 
-            for (var i = 1; i <= DOC.numPages; i++)
+            for(var i = 1; i <= DOC.numPages; i++)
 				addPage(i); 
 						
             pageCompensate();
@@ -101,7 +101,7 @@ function Magazine() {
      * @author Ricardo Delgado
      * Encourages and removes the magazine.
      */
-    this.remove = function (){
+    this.remove = function(){
 
         var flipbook = document.getElementById('flipbook-viewport'),
             positionHide = {x: (Math.random() + 1) * 5000, y: (Math.random() + 1) * 5000};
@@ -122,9 +122,9 @@ function Magazine() {
      */ 	
     this.actionSpecial = function(){
         
-        if (!MAGAZINE.data().zoomIn){
+        if(!MAGAZINE.data().zoomIn){
 
-            if (2 < MAGAZINE.turn('page')){ 
+            if(2 < MAGAZINE.turn('page')){ 
 
                 MAGAZINE.turn("page", 2);
                 MAGAZINE.turn("previous");
@@ -342,7 +342,7 @@ function Magazine() {
 
         addTable(1);
 
-        if (CONTENT > 24)
+        if(CONTENT > 24)
             addTable(2);
 
         $('#table').remove();
@@ -406,7 +406,7 @@ function Magazine() {
             end = 49;
         }
 
-        for (i; i <= end; i++){
+        for(i; i <= end; i++){
             ul.append($('#l-'+i));
         }
 
@@ -423,22 +423,22 @@ function Magazine() {
      */ 
     function pageCompensate(){
 
-        if (LOAD === 'book'){
+        if(LOAD === 'book'){
 
-            if (CONTENT <= 24){
+            if(CONTENT <= 24){
 
-                if (DOC.numPages % 2 === 0)
+                if(DOC.numPages % 2 === 0)
                     addPageCompensate(); 
             }
             else{
 
-                if (DOC.numPages % 2 !== 0)
+                if(DOC.numPages % 2 !== 0)
                     addPageCompensate();
             }
         }
         else{
 
-            if (DOC.numPages % 2 !== 0)
+            if(DOC.numPages % 2 !== 0)
                 addPageCompensate(); 
         }
 
@@ -476,29 +476,27 @@ function Magazine() {
      */ 
     function actionMagazine(){
 
-        window.Hash.on('^'+LOAD+'/page\/([0-9]*)$', {
+        window.Hash.on('^' + LOAD + '/page\/([0-9]*)$', {
 
             yep: function(path, parts) {
 
                 var factor = 2;
 
-                if (LOAD === 'book'){
+                if(LOAD === 'book'){
 
-                    if (CONTENT > 24){
+                    if(CONTENT > 24)
                         factor = 4;
-                    }
-                    else{
+                    else
                         factor = 3;
-                    }
                 }
 
                 var page = parseInt(parts[1]) + factor;
 
-                if (parts[1]!==undefined) {
+                if(parts[1] !== undefined) {
 
-                    if (MAGAZINE.turn('is')){
+                    if(MAGAZINE.turn('is')){
 
-                        if (MAGAZINE.turn("hasPage", page)){ 
+                        if(MAGAZINE.turn("hasPage", page)){ 
 
                             MAGAZINE.turn('page', page);
                             navigationUrl(parts[1]);
@@ -512,26 +510,20 @@ function Magazine() {
 
             var magazine = $(this);
 
-            if (page >= 2){
+            if(page >= 2)
                 $('#p2').addClass('fixed');
-            }
-            else{
+            else
                 $('#p2').removeClass('fixed');
-            }
 
-            if (page < magazine.turn('pages')){
+            if(page < magazine.turn('pages'))
                 $('#pn').addClass('fixed');
-            }
-            else{
+            else
                 $('#pn').removeClass('fixed');
-            }
 
-            if (page >= 4){
+            if(page >= 4)
                 navigationUrl(page - 4);
-            }
-            else {
+            else
                 navigationUrl("");
-            }
         }); 
 
         navigationUrl("");
@@ -547,10 +539,10 @@ function Magazine() {
      */  		
     function navigationUrl(page){
 
-        if (page === 0)
+        if(page === 0)
             page = 1;
 
-        window.Hash.go(LOAD+'/page/'+page).update();
+        window.Hash.go(LOAD + '/page/' + page).update();
 
     }
 		
@@ -562,10 +554,9 @@ function Magazine() {
 
         var flipbook = document.getElementById("flipbook-viewport");
 
-        if (flipbook.addEventListener) {
+        if(flipbook.addEventListener) {
 
             flipbook.addEventListener("mousewheel", MouseWheelHandler, false);
-
             flipbook.addEventListener("DOMMouseScroll", MouseWheelHandler, false);
         }
 
@@ -587,14 +578,14 @@ function Magazine() {
      */ 
     function zoomHandle(delta) {
 
-        if (MAGAZINE.data().zoomIn){ 
+        if(MAGAZINE.data().zoomIn){ 
             
-            if (delta < 0)
+            if(delta < 0)
                 zoomOut();
         }
         else{
             
-            if (delta > 0)
+            if(delta > 0)
                 zoomThis();
         }
 
@@ -660,7 +651,7 @@ function Magazine() {
      * @param {Array}  target          The objetive position.
      * @param {Number} [duration=3000] Duration of the animation.
      */ 
-    function animateMagazine (element, target, duration) {
+    function animateMagazine(element, target, duration) {
 
         var _duration = duration || 3000,
             position = {x : element.getBoundingClientRect().left, y : element.getBoundingClientRect().top};

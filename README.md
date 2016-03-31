@@ -2,13 +2,15 @@
 
 # fermat-org
 
+With *fermat-org* or *fermat.org* we name the 3D interface of the whole Fermat platform, currently available in http://dev.fermat.org. Its main goal is to help everyone understand and see the current status of the wide ecosystem of components that makes Fermat a reality. To be able to show such a complex structure we needed to make use of three dimensions, making use of certain Web Advantages such as WebGL to use the device's graphics hardware to render cool 3D or to render in a HTML canvas if there is not a graphics device available; and to help the development we use the fine WebGL library Three.js, which saves us a lot of work and has a lot of useful stuff. In fermat-org we don't just show the Fermat's components, we also show the relations between different platforms and super layers, the developers currently working on any Fermat component, the processes to show some of the principal tasks made by Fermat and even 3D books where you can read and learn all about Fermat. This is a complex task, but we enjoy adventuring in new technologies, libraries and crazy things to get the job done and show everyone the face of a system as alive as Fermat.
+Don't hesitate to watch the website by yourself, and if you like what you see and want to explore some new tools and contribute the website development then fork us! You are invited to join the family. Here's everything you need to know to get started with the development.
 ## Installation Guide
 
 ### Part I: Setting Up the Environment.
 
 Overview
 
-Fermat-org the system is divided into two modules which are the server and the client. To work in these modules first thing to do is install the version control system (Git), to keep track of source code and allow other programmers to collaborate on development.
+Fermat-org the system is divided into two modules which are the server and the client. To work in these modules, first thing to do is install the version control system (Git), to keep track of source code and allow other programmers to collaborate on development.
 
 To work on the server side the following programs must be installed:
 
@@ -46,11 +48,11 @@ $ git config --global user.name "User Name"
 $ git config --global user.email name123@example.com
 ```
 
-Alternatively I can download another application client function as Git, such SourceTree Atlassian.
+Alternatively, you can download another application client function as Git, such as SourceTree Atlassian.
 
 #### Installing Xampp.
 
-Simple download the executable from their official website and install.
+Simply download the executable from their official website and install.
 
 #### Installing Node.js.
 Installation for Windows.
@@ -73,7 +75,7 @@ Go to the [official website](http://brackets.io/) and download the executable fi
 
 #### Installing JsHint.
 
-The analyzer JsHint is a JavaScript code to avoid mistakes, it is a more permissive than JSLint version, this analyzer must download it from the brackets or other if applicable.
+The analyzer JsHint is a JavaScript code to avoid mistakes, it is a more permissive than JSLint version. This analyzer must be downloaded for Adobe Brackets or other text editor that supports it.
 
 Go to Extensions Manager and look Jshint and install.
 
@@ -90,14 +92,13 @@ In the case of brackets, open the preferences file and add the following to the 
     }
 ```
 
-For other text editors do have to edit the file .jshintrc for ours, which is in-visualization platform.
+In other text editors you have to edit the file .jshintrc to match ours, which is in-visualization platform.
 
 ### Part II: Downloading the repository Fermat-org.
 
 #### Creating a fork of a repository Fermat-org.
 
-A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without 
-affecting the original project.
+A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.
 
 To create a fork follow these steps:
 
@@ -133,8 +134,9 @@ Right now, you have a fork of the fermat-org repository, but you don't have the 
 ```
 * Press Enter. Your local clone will be created.
 
-Now, you have a local copy of your fork of the fermat-org repository!
+Now you have a local copy of your fork of the fermat-org repository!
 
+>**Warning:** On Windows, there is a limit for the path length, which is 260 characters. As gulp is installed in the repository to save you its configuration, the node.js files go too deep and can pass that limit, so you should clone the repository directly in the drive root ("C:\" for most cases). If you work on linux, there's not such limitation.
 #####Step 3: Configure Git to sync your fork with the original repository
 
 When you fork a project in order to propose changes to the original repository, you can configure Git to pull changes from the original, or upstream, repository into the local clone of your fork.
@@ -224,8 +226,8 @@ The origin repository will be updated.
 
 * The easiest and most visual way to do this is through GitHub. In order to do so, we have to head to our Fork, and on the left margin you'll see an green button that says: New Pull Request, click it. The web will show you a screen with a series of scrollable menus in which it indicates:
 
-    ¿To whom you wish to make the Pull Request? ¿To what branch?
-    ¿From where do you wish to make the Pull Request? ¿To what branch?
+    To whom you wish to make the Pull Request? To what branch?
+    From where do you wish to make the Pull Request? To what branch?
 
 * Be sure to pick the fork of your Responsible, the master branch on the first, and your fork and the master branch on the second.
 
@@ -247,20 +249,20 @@ Once you've downloaded the repository, you must generate the file main.js to ons
 * **From the console go to the repository folder Fermat-org/platform-visualization.**
 * **Write gulp, to run.**
 
-And ready, gulp runs in this window every pending changes made to files to regenerate main.js whenever any change, please note that when you start programming you repeat these steps, so that the main js this always updated with your changes.
+Once set, gulp runs in this window to regenerate main.js whenever a change is made to a file. Please note that when you start programming you must repeat these steps so that the main.js is always updated with your changes.
 
 #### Running Fermat-org.
 
 - __With internet:__ Just go to the browser.
 
-- __Without Internet:__ You must modify the Fermat-org / platform-visualization / src / file getData.js and comment on the $ .ajax des comment setTimeout and ready.
+- __Without Internet:__ You must modify the file getData.js, located in fermat-org/platform-visualization/src. Comment the $.ajax and uncomment setTimeout.
 
 
 ## Code agreement
 
 ### About naming variables
 
-- __Variable names:__ The variables will be named using _lowerCamelCase_ and they will be as descriptive, short and concise as possible. _lowerCamelCase_ is one of the most common classifications in programming and is a name that includes several words, it will be written without separation and the first letter of each word except the first, is capitalized. Example:
+- __Variable names:__ The variables will be named using _lowerCamelCase_ and they will be as descriptive, short and concise as possible. _lowerCamelCase_ is one of the most common classifications in programming and is a name that includes several words, it will be written without separation and the first letter of each word, except the first, is capitalized. Example:
 ```javascript
 var edades_de_personas; //BAD
 var edadesdepersonas; //BAD
@@ -268,7 +270,7 @@ var arrEdadesDePersonas; //BAD, the name must be descriptive enough to provide i
 var edadesPersonas; //GOOD
 ```
 
-- __Global:__ When reading Global variables they will be set for `window.` To check it in order it is global, the global present in other code files will be used only for reading or calling not to change its value. Example:
+- __Global:__ When reading Global variables, they will be set for `window.` to check that it is global. The global present in other code files will be used only for reading or calling, not to change its value. Example:
 ```javascript
 var global = 3;
 
@@ -298,8 +300,8 @@ if(condicion)
   
   ...
 
-/*If the if is a single line but has an else , and else has several, it will be drawn with keys, the else will go on the bottom line,
-some editors have trouble if the else is put on the same line where it closes  */
+/*If the "if" is a single line but has an else, and else has several lines, it will be drawn with keys
+and the else will go on the bottom line. Some editors have trouble if the else is put on the same line where it closes*/
 if(condicion) {
   accion();
 }
@@ -308,7 +310,7 @@ else {
   masAcciones();
 }
 
-//If otherwise, both if and else have a single line , there won’t be a problem to leave them without keys
+//If otherwise, both if and else have a single line, there won’t be a problem to leave them without keys
 if(condicion)
   accion();
 else
@@ -369,7 +371,7 @@ function myClase(parametros) {
   
 }
 
-//Public methods if multiple instances of the same object will be used
+//Public methods (if multiple instances of the same object will be used)
 myClase.prototype.funcionPublica = function(params) {
   //...
 }

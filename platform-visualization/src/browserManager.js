@@ -18,7 +18,7 @@ function BrowserManager() {
         POSITION_Y = (wide) ? 7500 : 8000,
         SCALE = (wide) ? 70 : 40;
 
-    var onClick = function (target) {
+    var onClick = function(target) {
 
        actionButton(target.userData.view);
 
@@ -29,7 +29,7 @@ function BrowserManager() {
      * Pressed button function.
      * @param {String} view  vista a cargar
      */
-    function actionButton (view) {
+    function actionButton(view) {
 
        window.goToView(view);
 
@@ -41,7 +41,7 @@ function BrowserManager() {
      * @param {Number}  valor    value of opacity.
      * @param {String} display   button status.
      */
-   this.modifyButtonLegend = function (valor, display) {
+   this.modifyButtonLegend = function(valor, display) {
     
       var browserButton = document.getElementById('legendButton');
       
@@ -59,7 +59,7 @@ function BrowserManager() {
     * @author Ricardo Delgado
     * Initialization of the arrows
     */
-   this.init = function () {
+   this.init = function() {
        
         for(var view in window.map.views) {
             loadView(view);
@@ -72,7 +72,7 @@ function BrowserManager() {
     * Loading the necessary views and arrows according to varible map. 
     * @param {String} view  view to load
     */
-    function loadView (view) {
+    function loadView(view) {
         
         var directions = ['up', 'down', 'right', 'left'];
 
@@ -127,21 +127,19 @@ function BrowserManager() {
      * @param {Number}  center   camera Center.
      * @param {String}  button   position arrow.
      */
-   function addArrow (view, centerX, centerY, button) {
+   function addArrow(view, centerX, centerY, button) {
 
         var mesh,
             _position,
             id = self.objects.mesh.length;
 
         mesh = new THREE.Mesh(
-               new THREE.PlaneBufferGeometry( 60, 60 ),
-               new THREE.MeshBasicMaterial( { map:null , side: THREE.FrontSide, transparent: true } ));
+               new THREE.PlaneBufferGeometry(60, 60),
+               new THREE.MeshBasicMaterial({ map:null , side: THREE.FrontSide, transparent: true }));
     
-       _position = calculatePositionArrow (centerX, centerY, button);
+       _position = calculatePositionArrow(centerX, centerY, button);
 
-       mesh.position.set( _position.x, 
-                          _position.y, 
-                          _position.z );
+       mesh.position.set(_position.x, _position.y, _position.z);
 
        mesh.scale.set(SCALE, SCALE, SCALE);
 
@@ -157,7 +155,7 @@ function BrowserManager() {
     
        self.objects.mesh.push(mesh);
 
-       addTextura (view, button, mesh);
+       addTextura(view, button, mesh);
 
    }
 
@@ -167,29 +165,21 @@ function BrowserManager() {
      * @param {Number}  center   camera Center.
      * @param {String}  button   position arrow.
      */
-   function calculatePositionArrow (centerX, centerY, button) {
+   function calculatePositionArrow(centerX, centerY, button) {
 
       var position = {},
           x = centerX,
           y = centerY,
           z = 80000 * -2; 
 
-      if ( button === "right" ) { 
-
-          x = centerX + POSITION_X; 
-      }
-      else if ( button === "left" ) { 
-
-        x = centerX + ( POSITION_X * -1 );
-      }
-      else if ( button === "up" ) { 
-
+     if(button === "right")
+         x = centerX + POSITION_X; 
+     else if(button === "left")
+         x = centerX + (POSITION_X * -1);
+     else if(button === "up")
          y = centerY + POSITION_Y;
-      }
-      else { 
-
-         y = centerY + ( POSITION_Y * -1 );
-      }
+     else 
+         y = centerY + (POSITION_Y * -1);
 
      position = { x: x, y: y, z: z };
 
@@ -204,7 +194,7 @@ function BrowserManager() {
      * @param {String}  button   image to use.
      * @param {object}   mesh    button to load texture.
      */
-   function addTextura (view, button, mesh) {
+   function addTextura(view, button, mesh) {
        
         var canvas,
             ctx,
@@ -221,7 +211,7 @@ function BrowserManager() {
 
         img.src = "images/browsers_arrows/arrow-"+button+".png";
 
-        img.onload = function () {
+        img.onload = function() {
 
             ctx.textAlign = 'center';
 
@@ -248,22 +238,20 @@ function BrowserManager() {
      * @param {String}   view    view.
      * @param {String}  button   image to use.
      */
-   function configTexture (view, button) {
+   function configTexture(view, button) {
      
     var config = {},
         text = {},
         image = {},
         label;
 
-    if (button !== "down") {  
+    if(button !== "down")  
         image = { x: 100, y : 0, text : 238 };
-    }
-    else { 
+    else 
         image = { x: 100, y : 120, text : 108 };
-    }
  
 
-      label = window.map.views[view].title;
+    label = window.map.views[view].title;
 
 
     text = { label : label, font: "48px Canaro, Sans-serif", size : 48 };
@@ -281,7 +269,7 @@ function BrowserManager() {
      * @param {Number}     target      The objetive Z position.
      * @param {Number} [duration=2000] Duration of the animation.
      */
-   function animate (mesh, target, duration) {
+   function animate(mesh, target, duration) {
 
         var _duration = duration || 2000,
             z = target;

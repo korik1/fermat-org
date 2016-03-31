@@ -16,7 +16,7 @@ function FlowManager(){
      * @param {Object} header target
      */
 
-    this.createColumHeaderFlow = function (header){
+    this.createColumHeaderFlow = function(header){
 
         var countElement = 0, 
             obj, 
@@ -24,7 +24,7 @@ function FlowManager(){
             position = [], 
             center;
 
-        for (var i = 0; i < headerFlow.length; i++) {
+        for(var i = 0; i < headerFlow.length; i++) {
             if(header.name === headerFlow[i].flow.platfrm){
                 countElement = countElement + 1;
                 ids.push(i);
@@ -35,15 +35,13 @@ function FlowManager(){
         center.copy(header.position);
         center.y = center.y - 2700;
 
-        if(countElement === 1){
-
+        if(countElement === 1)
             position.push(center); 
-        }
         else if(countElement === 2) {
 
             center.x = center.x - 500;
 
-            for (var k = 0; k < countElement; k++) {
+            for(var k = 0; k < countElement; k++) {
 
                 obj = new THREE.Vector3();
 
@@ -56,12 +54,12 @@ function FlowManager(){
             }
         }
         else if(countElement > 2){
-            var mid;
 
+            var mid;
 
             mid = Math.round(countElement / 2);
             
-            for (var x = mid; x > 0; x--) {
+            for(var x = mid; x > 0; x--) {
                 
                 center.x = center.x - 1500;
             }
@@ -98,6 +96,7 @@ function FlowManager(){
 
                 headerFlow[i].deleteAll();
                 window.helper.hideObject(headerFlow[i].objects[0], false, _duration);
+                window.scene.remove(headerFlow[i]);
             }
         }
         
@@ -116,12 +115,12 @@ function FlowManager(){
 
     this.getAndShowFlows = function(id) {
         
-        var element = window.table[id];
+        var element = window.helper.getSpecificTile(id).data;
         
-        var button = buttonsManager.createButtons('showFlows', 'Loading flows...');
+        var button = window.buttonsManager.createButtons('showFlows', 'Loading flows...');
         
         var url = window.helper.getAPIUrl("procs");
-        url += '?platform=' + (element.group || element.superLayer) + '&layer=' + element.layer + '&component=' + element.name;
+        url += '?group=' + (element.platform || element.superLayer) + '&layer=' + element.layer + '&component=' + element.name;
         
         $.ajax({
             url: url,
@@ -140,25 +139,24 @@ function FlowManager(){
                     button.innerHTML = 'Show Workflows';
                     button.addEventListener('click', function() {
                         showFlow(flows);
-                        buttonsManager.removeAllButtons();
+                        window.buttonsManager.removeAllButtons();
                     });
                 }
-                else {
-                    buttonsManager.deleteButton('showFlows');
-                } 
+                else
+                    window.buttonsManager.deleteButton('showFlows');
             }
         );
     };
 
     this.showWorkFlow = function() {
 
-        if (window.camera.getFocus() !== null) {
+        if(window.camera.getFocus() !== null) {
 
             window.camera.loseFocus();
 
             window.headers.transformWorkFlow(2000);
 
-            for (var i = 0; i < headerFlow.length ; i++) {
+            for(var i = 0; i < headerFlow.length ; i++) {
 
                 if(headerFlow[i].action){
 
@@ -166,9 +164,8 @@ function FlowManager(){
                     headerFlow[i].action = false;
                     headerFlow[i].showAllFlow();
                 }
-                else{
+                else
                     headerFlow[i].showAllFlow();
-                }
             }
             
             window.helper.hideBackButton();
@@ -210,14 +207,14 @@ function FlowManager(){
 
         var duration = 1000;
 
-        if (window.camera.getFocus() == null) {
+        if(window.camera.getFocus() == null) {
             
             var camTarget = headerFlow[id].objects[0].clone();
             camTarget.position.y -= 850;
 
             window.camera.setFocus(camTarget, new THREE.Vector4(0, -850, 2600, 1),duration);
 
-            for (var i = 0; i < headerFlow.length ; i++) {
+            for(var i = 0; i < headerFlow.length ; i++) {
                 if(id !== i)
                     headerFlow[i].letAloneHeaderFlow();
             }
@@ -225,7 +222,7 @@ function FlowManager(){
             headers.hidetransformWorkFlow(duration);
 
             setTimeout(function() {
-                for (var i = 0; i < headerFlow[id].flow.steps.length; i++) {
+                for(var i = 0; i < headerFlow[id].flow.steps.length; i++) {
                     headerFlow[id].drawTree(headerFlow[id].flow.steps[i], headerFlow[id].positions.target[0].x + 900 * i, headerFlow[id].positions.target[0].y - 211, 0);
                 }
                headerFlow[id].showSteps();
@@ -239,14 +236,14 @@ function FlowManager(){
      * @author Emmanuel Colina
      * Calculate the headers flows
      */
-    function calculatePositionHeaderFLow (headerFlow, objectHeaderInWFlowGroup) { 
+    function calculatePositionHeaderFLow(headerFlow, objectHeaderInWFlowGroup) { 
 
         var position, indice = 1;
         var find = false;
 
-        for (var i = 0; i < objectHeaderInWFlowGroup.length; i++) {
+        for(var i = 0; i < objectHeaderInWFlowGroup.length; i++) {
 
-            for (var j = 0; j < headerFlow.length; j++) {
+            for(var j = 0; j < headerFlow.length; j++) {
 
                 if(objectHeaderInWFlowGroup[i].name === headerFlow[j].flow.platfrm){
                     
@@ -264,8 +261,8 @@ function FlowManager(){
 
                         find = true;
                     }
-                    else
-                    {
+                    else{
+                        
                         position = new THREE.Vector3();
 
                         position.x = objectHeaderInWFlowGroup[i].position.x - 1500;
@@ -283,7 +280,7 @@ function FlowManager(){
     }
 
     //Should draw ONLY one flow at a time
-    function showFlow (flows) {
+    function showFlow(flows) {
     
         var position = window.camera.getFocus().position;
         var indice = 0;
@@ -315,7 +312,7 @@ function FlowManager(){
 
         var find = false;
 
-        for (var p = 0; p < headerFlow.length ; p++) {
+        for(var p = 0; p < headerFlow.length ; p++) {
 
             for(var q = 0; q < ids.length; q++){
                 if(ids[q] === p)
@@ -338,7 +335,7 @@ function FlowManager(){
 
         var duration = 3000;
 
-        for (var i = 0, l = ids.length; i < l; i++) {
+        for(var i = 0, l = ids.length; i < l; i++) {
             new TWEEN.Tween(headerFlow[ids[i]].objects[0].position)
             .to({
                 x : position[i].x,
@@ -358,8 +355,8 @@ function FlowManager(){
      */
     function drawColumHeaderFlow(ids, position){
 
-        for (var m = 0; m < ids.length; m++) {
-            for (var k = 0; k < headerFlow[ids[m]].flow.steps.length; k++) {
+        for(var m = 0; m < ids.length; m++) {
+            for(var k = 0; k < headerFlow[ids[m]].flow.steps.length; k++) {
                     headerFlow[ids[m]].drawTree(headerFlow[ids[m]].flow.steps[k], position[m].x + 900 * k, position[m].y - 211, 0);
             }
 

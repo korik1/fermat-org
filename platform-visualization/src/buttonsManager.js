@@ -4,16 +4,16 @@
 function ButtonsManager() {
 
     this.objects = {
-        button : []
-    };
-
-    var classConfig = {
-    	button : 'actionButton',
-    	label : 'label',
-    	select : 'select'
+        left : { 
+            buttons : []
+        },
+        right : {
+            buttons : []
+        }
     };
 
     var self = this;
+
     /**
      * @author Ricardo Delgado
      * All the buttons and their functions are added.
@@ -21,18 +21,23 @@ function ButtonsManager() {
      */
     this.actionButtons = function(id, callback){
 
-        if(window.table[id].author) {
+        self.removeAllButtons();
+
+        if(window.helper.getSpecificTile(id).data.author) {
 
             self.createButtons('developerButton', 'View developer', function(){
 
-            	if(typeof(callback) === 'function')
-                	callback();
+                self.removeAllButtons();
+                
+                if(typeof(callback) === 'function')
+                    callback();
+
             });
         }
 
         window.screenshotsAndroid.showButtonScreenshot(id);
 
-        window.flowManager.getAndShowFlows(id);//Always stop last
+        window.tableEdit.addButton(id);
     };
 
     /**
@@ -40,69 +45,77 @@ function ButtonsManager() {
      * creation of button and its function is added.
      * @param {String}  id  Button ID.
      * @param {String} text  Button text.
-	 * @param {Function} callback Function to call when finished.    
+     * @param {Function} callback Function to call when finished.    
      */
-    this.createButtons = function(id, text, callback, _x, _y, _type){
+    this.createButtons = function(id, text, callback, _x, _type, _side){
 
-    	var object = {
-            id : id,
-            text : text
-          };
+        if(!document.getElementById(id)){ 
 
-        var x = _x || 5,
-        	y = _y || 10,
-        	type = _type || 'button',
-        	idSucesor = "backButton",
-        	_class = classConfig[type];
+            var object = {
+                id : id,
+                text : text
+              };
 
-      	if(self.objects.button.length !== 0)
-      		idSucesor = self.objects.button[self.objects.button.length - 1].id;
+            var x = _x || 5,
+                type = _type || 'button',
+                side = _side || 'left',
+                idSucesor = "backButton";
 
-      	var button = document.createElement(type),
-          	sucesorButton = document.getElementById(idSucesor);
-                  
-  		button.id = id;
-		button.className = _class;
-		button.style.position = 'absolute';
-		button.innerHTML = text;
-		button.style.top = y + 'px';
-		button.style.left = (sucesorButton.offsetLeft + sucesorButton.clientWidth + x) + 'px';
-		button.style.zIndex = 10;
-		button.style.opacity = 0;
+            if(side === 'right')
+                idSucesor = '';
 
-      	button.addEventListener('click', function() {
-      		
-                if(typeof(callback) === 'function')
-                    callback(); 
+            if(self.objects[side].buttons.length !== 0)
+                idSucesor = helper.getLastValueArray(self.objects[side].buttons).id;
 
-                self.removeAllButtons();
-        	});
 
-      	document.body.appendChild(button);
 
-      	self.objects.button.push(object);
+            var button = document.createElement(type),
+                sucesorButton = document.getElementById(idSucesor);
+                      
+            button.id = id;
+            button.className = 'actionButton';
+            button.style.position = 'absolute';
+            button.innerHTML = text;
+            button.style.top = '10px';
+            button.style[side] = calculatePosition(sucesorButton, side, x);
+            button.style.zIndex = 10;
+            button.style.opacity = 0;
 
-      	window.helper.show(button, 1000);
+            button.addEventListener('click', function() {
 
-      	return button;
+                    if(typeof(callback) === 'function')
+                        callback(); 
+
+                });
+
+            document.body.appendChild(button);
+
+            self.objects[side].buttons.push(object);
+
+            window.helper.show(button, 1000);
+
+            return button;
+        }
     };
 
     /**
      * @author Ricardo Delgado
      * Eliminates the desired button.
      * @param {String}  id  Button ID.
-	 * @param {Function} callback Function to call when finished.    
+     * @param {Function} callback Function to call when finished.    
      */
-    this.deleteButton = function(id, callback){
+    this.deleteButton = function(id, _side, callback){
 
-    	for(var i = 0; i < self.objects.button.length; i++){
+        var side = _side || 'left';
 
-    		if(self.objects.button[i].id === id){
-    			self.objects.button.splice(i,1);
-    			window.helper.hide($('#'+id), 1000, callback);
-    			
-    		}
-    	}
+        for(var i = 0; i < self.objects[side].buttons.length; i++){
+
+            if(self.objects[side].buttons[i].id === id){
+                self.objects[side].buttons.splice(i,1);
+                window.helper.hide($('#'+id), 1000, callback);
+                
+            }
+        }
     };
 
     /**
@@ -111,15 +124,35 @@ function ButtonsManager() {
      */
     this.removeAllButtons = function(){
 
-    	if(self.objects.button.length !== 0){
+        if(self.objects.left.buttons.length !== 0 || self.objects.right.buttons.length !== 0){
 
-	    	var actualButton = self.objects.button.shift();
+            var side = 'left';
 
-	    	if( $('#'+actualButton.id) != null ) 
-	    		window.helper.hide($('#'+actualButton.id), 1000); 
-	    	
-	    		self.removeAllButtons();
-    	}
+            if(self.objects[side].buttons.length === 0)
+                side = 'right';
+
+            var actualButton = self.objects[side].buttons.shift();
+
+            if($('#'+actualButton.id) != null) 
+                window.helper.hide($('#'+actualButton.id), 1000); 
+            
+                self.removeAllButtons();
+        }
+        else
+            window.fieldsEdit.removeAllFields();
     };
+
+    function calculatePosition(sucesorButton, side, x){
+
+        if(side === 'left')
+            return ((sucesorButton.offsetLeft + sucesorButton.clientWidth + x) + 'px');
+        else {
+            if(!sucesorButton)
+                return (x + 'px'); 
+            else
+                return ((window.innerWidth - sucesorButton.offsetLeft + x) + 'px');
+        }
+    
+    }
 
 }

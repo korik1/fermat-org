@@ -1,9 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
         "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <link type="text/css" rel="stylesheet" href="styles.css"/>
         <link type="text/css" rel="stylesheet" href="common/vis.min.css"/>
         <link type="image/png" rel="icon" href="images/favicon.png"/>
@@ -19,40 +19,21 @@
         <script src="common/hash.min.js"></script>
         <script src="common/CanvasRenderer.js"></script>
         <script src="common/Projector.js"></script>
-	</head>
-	<body>
-		
+        </head>
+        <body>
+                
         
         <!--<img src="images/fermat_logo.png" id="splash"/>-->
-        
+        <button id="login">Login</button>
+        <button id="logout" style="display: none">Logout</button>
+
         <div id="progress-bar" style="width:0%; background-color: #62C2A3; height:5px; color: white; position: absolute; top: 0px; z-index: 10"></div>
         
         <button id="backButton" class="backButton" style="opacity : 0; display : none;">BACK</button>
-        <button id="legendButton" style="opacity: 0; display : none;"> ? </button>
-
         
-        <div id="legend" class="legend" style="opacity : 0; display : none;">
-            <table>
-                <tr>
-                    <td><div class="colorBox" style="background-color: rgba(150,150,150,0.5);"></div></td>
-                    <td><span>Concept</span></td>
-                </tr>
-                <tr>
-                    <td><div class="colorBox" style="background-color: rgba(244,133,107,0.5);"></div></td>
-                    <td><span>Development</span></td>
-                </tr>
-                <tr>
-                    <td><div class="colorBox" style="background-color: rgba(234,234,97,1);"></div></td>
-                    <td><span>QA</span></td>
-                </tr>
-                <tr>
-                    <td><div class="colorBox" style="background-color: rgba(80,188,107,0.5);"></div></td>
-                    <td><span>Production</span></td>
-                </tr>
-            </table>
-        </div>
         
-		<div id="container"></div>        
+        <div id="containerLogin"></div>
+        <div id="container"></div>
         <script src="main.js"></script>
-	</body>
+        </body>
 </html>

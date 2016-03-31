@@ -19,17 +19,19 @@ function ViewManager() {
      */
     this.translateToSection = function(sectionName, vector) {
         
-        sectionName = window.map.views[sectionName] || window.map.start;
-        var section = sectionName.section || [0, 0];
-        var newVector = vector.clone();
+    //    if(window.map.views[sectionName].title !== "Render") {
+            sectionName = window.map.views[sectionName] || window.map.start;
+            var section = sectionName.section || [0, 0];
+            var newVector = vector.clone();
         
-        if(typeof section !== 'undefined') {
+            if(typeof section !== 'undefined') {
         
-            newVector.x = vector.x + section[0] * SECTION_SIZE;
-            newVector.y = vector.y + section[1] * SECTION_SIZE;
-        }
+                newVector.x = vector.x + section[0] * SECTION_SIZE;
+                newVector.y = vector.y + section[1] * SECTION_SIZE;
+            }
         
-        return newVector;
+            return newVector;
+    //    }
     };
     
     /**
@@ -53,9 +55,9 @@ function ViewManager() {
                 case 'table':
                     enter = function() {
 
-                        window.browserManager.modifyButtonLegend(1,'block');
+                        window.tableEdit.addButton();
 
-                        window.tileManager.transform(window.tileManager.targets.table, true, 3000 + transition);
+                        window.tileManager.transform(true, 3000 + transition);
                         
                         setTimeout(function(){
                             window.signLayer.transformSignLayer();
@@ -72,19 +74,27 @@ function ViewManager() {
                     
                     backButton = function() {
                         
-                        window.changeView(tileManager.targets.table);
+                        window.changeView();
             
                         setTimeout(function(){
                             window.signLayer.transformSignLayer();
                         }, 2500);
+
+                        window.developer.delete();
                     };                    
                     
                     exit = function() {
+
                         window.tileManager.rollBack();
+
+                        window.buttonsManager.removeAllButtons();
                     };
 
                     reset = function() {
+
                         window.tileManager.rollBack();
+
+                        window.headers.transformTable(2000);
 
                         setTimeout(function(){
                             window.signLayer.transformSignLayer();
@@ -95,11 +105,18 @@ function ViewManager() {
                 case 'stack':
                     enter = function() {
 
+                        if(!window.headersUp) {
+                            headers.showHeaders(transition);
+                            window.headersUp = true;
+                        }
                         window.headers.transformStack(transition);
 
                         window.helper.hideBackButton();
 
-                        window.browserManager.modifyButtonLegend(0,'none');
+                    };
+
+                    exit = function() {
+                        window.headers.deleteArrows(transition);
                     };
 
                     break;
@@ -107,7 +124,13 @@ function ViewManager() {
                     enter = function() {
                         window.logo.stopFade(2000);
                     };
-
+                    
+                    exit = function() {
+                        if(window.guide.active){
+                            window.guide.removeHelp();
+                            window.guide.active = false;
+                        }
+                    };
                     break;
                 case 'book':
                 case 'readme':
@@ -129,6 +152,10 @@ function ViewManager() {
                     break;
                 case 'workflows':
                     enter = function() {
+                        if(!window.headersUp) {
+                            headers.showHeaders(transition);
+                            window.headersUp = true;
+                        }
                         window.flowManager.getHeaderFLow();
                         window.headers.transformWorkFlow(transition);
                     };
@@ -188,15 +215,19 @@ function ViewManager() {
 
                         setTimeout(function(){
                             window.developer.animateDeveloper();
-                        }, 2000);        
+                        }, 2500);        
                     };
                     
                     backButton = reset = function() {
-                        setTimeout(function(){
+                        //setTimeout(function(){
                             window.developer.animateDeveloper();
-                        }, 4000);
+                        //}, 2000);
                         
-                        window.changeView(tileManager.targets.table);
+                        window.changeView();
+                    };
+
+                    exit = function() {
+                        window.developer.delete();
                     };
 
                     break;

@@ -51,11 +51,13 @@ function SignLayer(){
  	* function create a Sign Layer
  	*/
 	this.createSignLayer = function(x, y, titleSign, _group){
-
 		var mesh;
 		var source = "images/sign/sign.png";
 
         window.screenshotsAndroid.setGroup(_group, titleSign);
+
+            if(typeof TABLE[_group].x === 'undefined')
+                TABLE[_group].x = x;
 
 		var fillBox = function(ctx, image) {
             
@@ -70,9 +72,61 @@ function SignLayer(){
         };
 
         mesh = createBoxSignLayer(source, fillBox, 720, 140);
+        mesh.name = _group.concat(titleSign);
 		mesh = self.setPositionSignLayer(mesh, x , y);
 		window.scene.add(mesh);
 	};
+
+    /**
+    * @author Isaias Taborda
+    * @param   {_group}    [string] sign layer's group    
+    * @param   {titleSign} [string] sign layer's name 
+    * @returns {boolean}    
+    * checks if a Sign Layer has been drawn
+    */
+    this.findSignLayer = function(group, titleSign){
+        var objectsSize = objects.length;
+        for(var i=0; i<objectsSize; i++) {
+            if(objects[i].name === group.concat(titleSign))
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+    * @author Isaias Taborda
+    * @param   {_group}    [string] sign layer's group    
+    * @param   {titleSign} [string] sign layer's name     
+    * function delete a Sign Layer
+    */
+    this.deleteSignLayer = function(_group, titleSign){
+        var objectsSize = objects.length;
+        for(var i=0; i<objectsSize; i++) {
+            if(objects[i].name === _group.concat(titleSign)) {
+                this.removeSignLayer(i);
+                setTimeout(function(){
+                    window.scene.remove(objects[i]);
+                    objects.splice(i,1);
+                    positions.target.splice(i,1);
+                    positions.lastTarget.splice(i,1);
+                }, 5000);
+                break;
+            }
+        }
+    };
+
+    this.removeSignLayer = function(pos){
+        var duration = 5000;
+        new TWEEN.Tween(objects[pos].position)
+            .to({
+                x : positions.lastTarget[pos].x,
+                y : positions.lastTarget[pos].y,
+                z : positions.lastTarget[pos].z
+            },duration)
+            .easing(TWEEN.Easing.Bounce.In)
+            .start();
+    };
 
 	/**
  	* @author Emmanuel Colina
@@ -112,7 +166,7 @@ function SignLayer(){
 		
 		var duration = 3000;
 
-		for (var i = 0, l = objects.length; i < l; i++) {
+		for(var i = 0, l = objects.length; i < l; i++) {
             new TWEEN.Tween(objects[i].position)
             .to({
                 x : positions.target[i].x,
@@ -128,7 +182,7 @@ function SignLayer(){
 
 		var duration = 3000;
             
-        for (var i = 0, l = objects.length; i < l; i++) {
+        for(var i = 0, l = objects.length; i < l; i++) {
         	new TWEEN.Tween(objects[i].position)
             .to({
                 x : positions.lastTarget[i].x,

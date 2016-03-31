@@ -3,6 +3,20 @@
  */
 function Helper() {
 
+    var SERVER = 'http://api.fermat.org';
+
+    //var PORT = '';
+
+    var PORT = '?env=testing';
+
+    var USERDATA = '';
+
+    var AXS_KEY = '';
+
+    this.listDevs = {};
+
+    var self = this;
+
     /**
      * Hides an element vanishing it and then eliminating it from the DOM
      * @param {DOMElement} element         The element to eliminate
@@ -14,18 +28,20 @@ function Helper() {
         var dur = duration || 1000,
             el = element;
 
-        if (typeof(el) === "string") {
+        if(typeof(el) === "string")
             el = document.getElementById(element);
-        }
 
         if(el) {
             $(el).fadeTo(duration, 0, function() {
-                if(keep)
+                if(keep) {
                     el.style.display = 'none';
+                    el.style.opacity = 0;
+                    el.style.transition = 'display 0s 2s, opacity 2s linear';
+                }
                 else
                     $(el).remove();
 
-                if(callback != null && typeof(callback) === 'function')
+                if(typeof(callback) === 'function')
                     callback(); 
             });
         }
@@ -34,9 +50,12 @@ function Helper() {
 
     this.hideButtons = function(){
 
-        if( $('#developerButton') != null ) window.helper.hide($('#developerButton'), 1000);
-        if( $('#showFlows') != null ) window.helper.hide($('#showFlows'), 1000);
-        if( $('#showScreenshots') != null ) window.helper.hide($('#showScreenshots'), 1000);        
+        if($('#developerButton') != null) 
+          window.helper.hide($('#developerButton'), 1000);
+        if($('#showFlows') != null) 
+          window.helper.hide($('#showFlows'), 1000);
+        if($('#showScreenshots') != null) 
+          window.helper.hide($('#showScreenshots'), 1000);        
     };
     
     /**
@@ -50,13 +69,12 @@ function Helper() {
         
         duration = duration || 1000;
 
-        if (typeof(element) === "string") {
+        if(typeof(element) === "string")
             element = document.getElementById(element);
-        }
 
         $(element).fadeTo(duration, 1, function() {
                 $(element).show();
-            });
+        });
     };
     
     /**
@@ -97,7 +115,10 @@ function Helper() {
         new TWEEN.Tween(object.material)
             .to({opacity : 0}, duration)
             .onUpdate(function() { this.needsUpdate = true; })
-            .onComplete(function() { if(!keep) window.scene.remove(object); })
+            .onComplete(function() { 
+              if(!keep) 
+                window.scene.remove(object); 
+            })
             .start();
     };
 
@@ -125,7 +146,8 @@ function Helper() {
      */
     this.parseDate = function(date) {
 
-        if (date == null) return null;
+        if(date == null)
+          return null;
 
         var parts = date.split('-');
 
@@ -142,8 +164,9 @@ function Helper() {
         var words = string.split(" ");
         var result = "";
 
-        for (var i = 0; i < words.length; i++)
+        for(var i = 0; i < words.length; i++){
             result += words[i].charAt(0).toUpperCase() + words[i].slice(1) + " ";
+        }
 
         return result.trim();
     };
@@ -158,22 +181,25 @@ function Helper() {
         var words = pluginName.split(" ");
         var code = "";
 
-        if (words.length == 1) { //if N = 1, use whole word or 3 first letters
+        if(words.length == 1) { //if N = 1, use whole word or 3 first letters
 
-            if (words[0].length <= 4)
+            if(words[0].length <= 4)
                 code = this.capFirstLetter(words[0]);
             else
                 code = this.capFirstLetter(words[0].slice(0, 3));
-        } else if (words.length == 2) { //if N = 2 use first cap letter, and second letter
+        } 
+        else if(words.length == 2) { //if N = 2 use first cap letter, and second letter
 
             code += words[0].charAt(0).toUpperCase() + words[0].charAt(1);
             code += words[1].charAt(0).toUpperCase() + words[1].charAt(1);
-        } else { //if N => 3 use the N (up to 4) letters caps
+        } 
+        else { //if N => 3 use the N (up to 4) letters caps
 
             var max = (words.length < 4) ? words.length : 4;
 
-            for (var i = 0; i < max; i++)
+            for(var i = 0; i < max; i++){
                 code += words[i].charAt(0).toUpperCase();
+            }
         }
 
         return code;
@@ -193,12 +219,12 @@ function Helper() {
             _layer = item.layer ? item.layer.toLowerCase().split(' ').join('_') : null,
             _name = item.name ? item.name.toLowerCase().split(' ').join('-') : null;
 
-        if (_group && _type && _layer && _name) {
+        if(_group && _type && _layer && _name) {
             return _group + "/" + _type + "/" + _layer + "/" +
                 _root + "-" + _group.split('_').join('-').toLowerCase() + "-" + _type.split('_').join('-') + "-" + _layer.split('_').join('-') + "-" + _name + "-bitdubai";
-        } else {
+        } 
+        else
             return null;
-        }
     };
     
     /**
@@ -209,7 +235,6 @@ function Helper() {
      */
     this.getAPIUrl = function(route) {
         
-        var SERVER = "http://52.35.117.6:3000";
         var tail = "";
         
         switch(route) {
@@ -221,16 +246,287 @@ function Helper() {
                 tail = "/v1/repo/procs";
                 break;
             case "servers":
-                tail = "/v1/network/servers";
+                tail = "/v1/net/servrs";
                 break;
             case "nodes":
-                tail = "/v1/network/node";
+                tail = "/v1/net/nodes";
+                break;
+            case "login":
+                tail = "/v1/auth/login";
+                break;
+            case "logout":
+                tail = "/v1/auth/logout";
+                break;
+            case "user":
+                tail = "/v1/repo/devs";
                 break;
         }
         
-        return SERVER + tail;
+        return SERVER + tail + PORT;
     };
-    
+
+    this.postRoutesComponents = function(route, params, data, doneCallback, failCallback){
+
+        var tail = "",
+            method = "",
+            setup = {};
+
+        switch(route) {
+                
+            case "insert":
+                method = "POST";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/comps";
+                break;
+            case "delete":
+                method = "DELETE";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/comps/" + data.comp_id;
+                break;
+            case "update":
+                method = "PUT";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/comps/" + data.comp_id;
+                break;
+            case "insert dev":
+                method = "POST";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/comps/" + data.comp_id + "/comp-devs";
+                break;
+            case "delete dev":
+                method = "DELETE";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/comps/" + data.comp_id + "/comp-devs/" + data.devs_id;
+                break;
+            case "update dev":
+                method = "PUT";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/comps/" + data.comp_id + "/comp-devs/" + data.devs_id;
+                break;                    
+                
+        }
+
+        setup.method = method;
+        setup.url = SERVER + tail + PORT + AXS_KEY;
+        setup.headers = { 
+            "Content-Type": "application/json"
+             };
+
+        if(params)
+            setup.data = params;
+
+        makeCorsRequest(setup.url, setup.method, setup.data, 
+            function(res){
+        
+                if(typeof(doneCallback) === 'function')
+                    doneCallback(res);
+            }, 
+            function(res){
+
+                window.alert('Action Not Executed');
+
+                if(typeof(failCallback) === 'function')
+                    failCallback(res);
+            }
+        );
+
+    };
+
+    this.postRoutesProcess = function(route, params, data, doneCallback, failCallback){
+
+        var tail = "",
+            method = "",
+            setup = {};
+
+        switch(route) {
+                
+            case "insert":
+                method = "POST";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/procs";
+                break;
+            case "delete":
+                method = "DELETE";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/procs/" + data.proc_id;
+                break;
+            case "update":
+                method = "PUT";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/procs/" + data.proc_id;
+                break;
+            case "insert step":
+                method = "POST";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/procs/" + data.proc_id + "/steps";
+                break;
+            case "delete step":
+                method = "DELETE";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/procs/" + data.proc_id + "/steps/" + data.steps_id;
+                break;
+            case "update step":
+                method = "PUT";
+                tail = "/v1/repo/usrs/" + USERDATA._id + "/procs/" + data.proc_id + "/steps/" + data.steps_id;
+                break;                    
+                
+        }
+
+        setup.method = method;
+        setup.url = SERVER + tail + PORT + AXS_KEY;
+        setup.headers = { 
+            "Content-Type": "application/json"
+             };
+
+        if(params)
+            setup.data = params;
+
+        makeCorsRequest(setup.url, setup.method, setup.data, 
+            function(res){
+        
+                if(typeof(doneCallback) === 'function')
+                    doneCallback(res);
+            }, 
+            function(res){
+
+                window.alert('Action Not Executed');
+
+                if(typeof(failCallback) === 'function')
+                    failCallback(res);
+            }
+        );
+
+    };
+
+    var makeCorsRequest = function(url, method, params, success, error) {
+
+        var xhr = createCORSRequest(url, method);
+
+        xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+
+          if(!xhr) {
+            window.alert('CORS not supported');
+            return;
+          }
+
+        xhr.onload = function() {
+
+            var res = null;
+
+            if(method !== 'DELETE')
+                res = JSON.parse(xhr.responseText);
+
+            success(res);
+            
+        };
+
+        xhr.onerror = function() {
+
+            error(arguments);
+
+        };
+
+        if(typeof params !== 'undefined'){
+
+            var data = JSON.stringify(params);
+
+            xhr.send(data);
+        }
+        else
+            xhr.send();
+
+        function createCORSRequest(url, method) {
+
+            var xhr = new XMLHttpRequest();
+
+            if("withCredentials" in xhr) 
+                xhr.open(method, url, true);
+            else 
+                xhr = null;
+        
+            return xhr;
+        }
+    };
+
+    this.getCompsUser = function(callback){
+
+        var url = "";
+
+        var list = {};
+
+        //window.session.useTestData();
+
+        if(window.session.getIsLogin()){ 
+
+            USERDATA = window.session.getUserLogin();
+
+            AXS_KEY = '?axs_key=' + USERDATA.axs_key;
+
+            url = SERVER + "/v1/repo/usrs/"+USERDATA._id+"/";
+
+            callAjax('comps', function(){
+
+                callAjax('layers', function(){
+
+                    callAjax('platfrms', function(){
+                    
+                        callAjax('suprlays', function(){
+
+                            callAjaxDevs(function(){ 
+
+                                callback(list);
+
+                            });
+                
+                        });
+                    });
+                });
+            });
+        }
+        else{
+
+            url = self.getAPIUrl("comps");
+
+            PORT = '';
+
+            callAjax('', function(){
+
+                callAjaxDevs(function(){ 
+
+                    callback(list);
+
+                }); 
+                
+            });
+        }
+
+        function callAjax(route, callback){
+
+            $.ajax({
+                url: url + route + PORT,
+                method: "GET"
+            }).success (
+                function (res) {
+
+                    if(route === '')
+                        list = res;
+                    else
+                       list[route] = res; 
+
+                    if(typeof(callback) === 'function')
+                        callback();
+
+                });
+        }
+
+        function callAjaxDevs(callback){
+
+            url = self.getAPIUrl("user");
+
+            $.ajax({
+                url: url + PORT,
+                method: "GET"
+            }).success (
+                function (res) {
+
+                    self.listDevs = res;
+
+                    if(typeof(callback) === 'function')
+                        callback();
+
+                });
+        }
+
+    };   
     /**
      * Loads a texture and applies it to the given mesh
      * @param {String}   source     Address of the image to load
@@ -280,14 +576,13 @@ function Helper() {
               var testLine = line + words[n] + ' ';
               var metrics = context.measureText(testLine);
               var testWidth = metrics.width;
-              if (testWidth > maxWidth && n > 0) {
+              if(testWidth > maxWidth && n > 0) {
                 context.fillText(line, x, y);
                 line = words[n] + ' ';
                 y += lineHeight;
               }
-              else {
+              else
                 line = testLine;
-              }
             }
             context.fillText(line, x, y);
 
@@ -304,22 +599,25 @@ function Helper() {
      */
     this.searchElement = function(elementFullName) {
         
-        if(typeof elementFullName !== 'string') return -1;
+        if(typeof elementFullName !== 'string' || elementFullName === 'undefined/undefined/undefined')
+            return -1;
         
         var group,
             components = elementFullName.split('/');
         
         if(components.length === 3) {
         
-            for(var i = 0, l = table.length; i < l; i++) {
+            for(var i = 0; i < window.tilesQtty.length; i++){
 
-                group = table[i].group || window.layers[table[i].layer].super_layer;
+                var tile = window.helper.getSpecificTile(window.tilesQtty[i]).data;
+        
+                group = tile.platform || window.layers[tile.layer].super_layer;
 
-                if(group.toLowerCase() === components[0].toLowerCase() &&
-                   table[i].layer.toLowerCase() === components[1].toLowerCase() &&
-                   table[i].name.toLowerCase() === components[2].toLowerCase())
-                    return i;
-            }
+                if(group && group.toLowerCase() === components[0].toLowerCase() &&
+                   tile.layer.toLowerCase() === components[1].toLowerCase() &&
+                   tile.name.toLowerCase() === components[2].toLowerCase())
+                    return window.tilesQtty[i];           
+            }  
         }
 
         return -1;
@@ -358,12 +656,10 @@ function Helper() {
         
         var valid = true;
         
-        if(!vector) {
+        if(!vector)
             valid = false;
-        }
-        else if(isNaN(vector.x) || isNaN(vector.y) || isNaN(vector.z)) {
+        else if(isNaN(vector.x) || isNaN(vector.y) || isNaN(vector.z))
             valid = false;
-        }
         
         return valid;
     };
@@ -389,5 +685,72 @@ function Helper() {
         .to({}, duration)
         .onUpdate(window.render)
         .start();
+    };
+
+    this.getCenterView = function(view){
+
+        var newCenter = new THREE.Vector3(0, 0, 0);
+
+        newCenter = window.viewManager.translateToSection(view, newCenter);
+
+        return newCenter;
+
+    };
+
+    this.fillTarget = function(x, y, z, view){
+
+        var object3D = new THREE.Object3D();
+
+        var target = {
+                show : {},
+                hide : {}
+            };
+
+        object3D.position.x = Math.random() * 80000 - 40000;
+        object3D.position.y = Math.random() * 80000 - 40000;
+        object3D.position.z = 80000 * 2;
+
+        object3D.position.copy(window.viewManager.translateToSection(view, object3D.position));
+
+        target.hide.position = new THREE.Vector3(object3D.position.x, object3D.position.y, object3D.position.z);
+        target.hide.rotation = new THREE.Vector3(Math.random() * 180, Math.random() * 180, Math.random() * 180);
+
+        target.show.position = new THREE.Vector3(x, y, z);
+        target.show.rotation = new THREE.Vector3(0, 0, 0);
+
+        return target;
+    };
+
+    this.getSpecificTile = function(_id){
+
+        var id = _id.split("_");
+
+        return window.TABLE[id[0]].layers[id[1]].objects[id[2]];
+
+    };
+
+    this.getLastValueArray = function(array){
+
+        var value = array[array.length - 1];
+
+        return value;
+    };
+
+    this.getCountObject = function(object){
+
+        var count = 0;
+
+        for(var i in object){
+            count++;
+        } 
+
+        return count;
+    };
+
+    this.getPositionYLayer = function(layer){
+
+        var index = window.layers[layer].index;
+
+        return window.tileManager.dimensions.layerPositions[index];
     };
 }

@@ -18,8 +18,8 @@ function Camera(position, renderer, renderFunc) {
     /**
      * private properties
      */    
-    var camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, MAX_DISTANCE );
-    var controls = new THREE.TrackballControls( camera, renderer.domElement );
+    var camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, MAX_DISTANCE);
+    var controls = new THREE.TrackballControls(camera, renderer.domElement);
     var focus = null;
     var self = this;
     var rendering = false;
@@ -27,15 +27,15 @@ function Camera(position, renderer, renderFunc) {
     var fake = new THREE.Object3D();
     fake.position.set(MAX_DISTANCE, MAX_DISTANCE, -MAX_DISTANCE);
     
-    camera.position.copy( position );
+    camera.position.copy(position);
 
     controls.rotateSpeed = ROTATE_SPEED;
     controls.noRotate = true;
     controls.noPan = true;
     controls.minDistance = MIN_DISTANCE;
     controls.maxDistance = MAX_DISTANCE;
-    controls.addEventListener( 'change', renderFunc );
-    controls.position0.copy( position );
+    controls.addEventListener('change', renderFunc);
+    controls.position0.copy(position);
     
     // Public properties
     this.dragging = false;
@@ -69,7 +69,9 @@ function Camera(position, renderer, renderFunc) {
      * Returns the max distance set
      * @returns {Number} Max distance constant
      */
-    this.getMaxDistance = function() { return MAX_DISTANCE; };
+    this.getMaxDistance = function() { 
+        return MAX_DISTANCE; 
+    };
 
     /**
      * @method disable disables camera controls
@@ -128,18 +130,18 @@ function Camera(position, renderer, renderFunc) {
         focus = target;
 
         self.render(renderer, scene); 
-        offset.applyMatrix4( target.matrix );
+        offset.applyMatrix4(target.matrix);
 
-        new TWEEN.Tween( camera.position )
-            .to( { x: offset.x, y: offset.y, z: offset.z }, duration )
+        new TWEEN.Tween(camera.position)
+            .to({ x: offset.x, y: offset.y, z: offset.z }, duration)
             .onComplete(render)
             .start();
         
         self.setTarget(target.position, duration / 2);
 
-        new TWEEN.Tween( camera.up )
-            .to( { x: target.up.x, y: target.up.y, z: target.up.z }, duration )
-            .easing( TWEEN.Easing.Exponential.InOut )
+        new TWEEN.Tween(camera.up)
+            .to({ x: target.up.x, y: target.up.y, z: target.up.z }, duration)
+            .easing(TWEEN.Easing.Exponential.InOut)
             .start();
     };
 
@@ -151,18 +153,19 @@ function Camera(position, renderer, renderFunc) {
      
     this.loseFocus = function() {
         
-        if ( focus != null ) {
+        if(focus != null) {
             var backButton = document.getElementById('backButton');
-            $(backButton).fadeTo(1000, 0, function() { backButton.style.display = 'none'; } );
+            $(backButton).fadeTo(0, 0, function() { backButton.style.display = 'none'; });
             $('#sidePanel').fadeTo(1000, 0, function() { $('#sidePanel').remove(); });
             $('#elementPanel').fadeTo(1000, 0, function() { $('#elementPanel').remove(); });
             $('#timelineButton').fadeTo(1000, 0, function() { $('#timelineButton').remove(); });
-            if( $('#tlContainer') != null ) helper.hide($('#tlContainer'), 1000);
+            if($('#tlContainer') != null)
+                helper.hide($('#tlContainer'), 1000);
             $(renderer.domElement).fadeTo(1000, 1);
 
-            window.buttonsManager.removeAllButtons();
-
             focus = null;
+            
+            window.buttonsManager.removeAllButtons();
         }
     };
     
@@ -179,7 +182,7 @@ function Camera(position, renderer, renderFunc) {
         camera.updateProjectionMatrix();
         self.aspectRatio = camera.aspect;
 
-        renderer.setSize( innerWidth, innerHeight );
+        renderer.setSize(innerWidth, innerHeight);
 
         render();
     };
@@ -191,10 +194,9 @@ function Camera(position, renderer, renderFunc) {
      * @param {Event} event event to listen to
      * 
      */
-    this.onKeyDown = function( event ) {
-    
-        if ( event.keyCode === 27 /* ESC */ ) {
-
+    this.onKeyDown = function(event) {
+        
+        if(event.keyCode === 27 /* ESC */) {
             //TWEEN.removeAll();
             var duration = 2000;
 
@@ -220,24 +222,27 @@ function Camera(position, renderer, renderFunc) {
             
             var targetView = window.viewManager.translateToSection(window.actualView, new THREE.Vector3(0, 0, 0));
             
-            new TWEEN.Tween( controls.target )
-                    .to( { x: targetView.x, y: targetView.y, z: targetView.z }, duration )
+            new TWEEN.Tween(controls.target)
+                    .to({ x: targetView.x, y: targetView.y, z: targetView.z }, duration)
                     //.easing( TWEEN.Easing.Cubic.InOut )
                     .start();
         }
 
-            new TWEEN.Tween( camera.position )
-                .to( { x: target.x, y: target.y, z: target.z }, duration )
+            new TWEEN.Tween(camera.position)
+                .to({ x: target.x, y: target.y, z: target.z }, duration)
                 //.easing( TWEEN.Easing.Exponential.InOut )
-                .onUpdate(function(){ if(!self.freeView) controls.target.set(camera.position.x, camera.position.y, 1); })
+                .onUpdate(function(){ 
+                    if(!self.freeView)
+                     controls.target.set(camera.position.x, camera.position.y, 1); 
+                })
                 .onComplete(function() {
                     self.enable();
                     self.disableFreeMode();
                 })
                 .start();
 
-            new TWEEN.Tween( camera.up )
-                .to( { x: 0, y: 1, z: 0 }, duration )
+            new TWEEN.Tween(camera.up)
+                .to({ x: 0, y: 1, z: 0 }, duration)
                 //.easing( TWEEN.Easing.Exponential.InOut )
                 .start();
     };
@@ -253,16 +258,14 @@ function Camera(position, renderer, renderFunc) {
             
             controls.noPan = false;
         
-            if(self.freeView === true) {
+            if(self.freeView === true)
                 self.enableFreeMode();
-            }
             
             if(window.viewManager && window.actualView)
                 window.viewManager.views[window.actualView].zoom();
         }
-        else if(controls.noPan === false && Math.ceil(camera.position.z) === controls.position0.z && self.freeView === false) {
+        else if(controls.noPan === false && Math.ceil(camera.position.z) === controls.position0.z && self.freeView === false)
             this.onKeyDown({keyCode : 27}); //Force reset if far enough
-        }
         
         controls.update();
         self.dragging = controls.dragging;
@@ -276,7 +279,7 @@ function Camera(position, renderer, renderFunc) {
      * @param {Scene}    scene    scene to render
      *
      */
-    this.render = function ( renderer, scene ) {
+    this.render = function(renderer, scene) {
         
         var cam;
         
@@ -284,24 +287,25 @@ function Camera(position, renderer, renderFunc) {
             
             rendering = true;
 
-            scene.traverse( function ( object ) {
+            scene.traverse(function (object) {
 
-                if ( object instanceof THREE.LOD ) {
+                if(object instanceof THREE.LOD) {
 
-                    if(object.userData.flying === true) cam = fake;
-                    else cam = camera;
+                    if(object.userData.flying === true)
+                        cam = fake;
+                    else
+                        cam = camera;
 
-                    object.update( cam );
+                    object.update(cam);
                 }
             });
 
-            renderer.render ( scene, camera );
+            renderer.render(scene, camera);
             
             rendering = false;
         }
-        else {
+        else
             console.log("Render ignored");
-        }
     };
     
     /**
@@ -310,7 +314,7 @@ function Camera(position, renderer, renderFunc) {
      *
      * @return {Number} focused target
      */
-    this.getFocus = function () { 
+    this.getFocus = function() { 
         return focus;
     };
     
@@ -378,10 +382,8 @@ function Camera(position, renderer, renderFunc) {
             tween.start();
             
         }
-        else {
-            window.alert("Error: this is not a valid vector (" + x + ", " + y + ", " + z + ")");
-        }
-        
+        else
+            window.alert("Error: this is not a valid vector (" + x + ", " + y + ", " + z + ")"); 
     };
     
     /**
@@ -399,6 +401,6 @@ function Camera(position, renderer, renderFunc) {
     };
     
     // Events
-    window.addEventListener( 'resize', this.onWindowResize, false );
-    window.addEventListener( 'keydown', this.onKeyDown, false );
+    window.addEventListener('resize', this.onWindowResize, false);
+    window.addEventListener('keydown', this.onKeyDown, false);
 }

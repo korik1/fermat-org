@@ -1,0 +1,46 @@
+
+lnacosta [11:26 AM] 
+es  hacer estadísticas anonimas
+
+rart3001 [11:26 AM] 
+y en las proximas peticiones ustedes en la cabecera del request tienen q mandarlo asi
+
+furszy [11:26 AM] 
+de cuanta plata tiene la gente?
+
+rart3001 [11:26 AM] 
+Authorization = Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZXJtYXQiLCJpYXQiOjE0NTY5Mjg2MTAsImV4cCI6MTQ1NjkyOTIxMCwiaXNzIjoiL2Zlcm1hdC9hcGkvbW9uaXRvcmluZy8ifQ.O9sTsr-jA3Tf0yvjvpyMVYbVsWKlqVACfdiJbGpRLWw
+
+lnacosta [11:26 AM] 
+de cuanta plata se maneja en las billeteras fermat
+
+fuelusumar [11:26 AM] 
+ok un jwt
+
+lnacosta [11:26 AM] 
+no lo considero de ninguna manera espionaje
+
+rart3001 [11:27 AM] 
+si
+
+[11:27] 
+y luego la data de monitoreo disponible
+
+[11:27] 
+la retorna asi
+
+[11:27] 
+{"pendingClientConnection":0,"registeredClientConnection":1,"registeredNetworkServiceTotal":4,"registeredNetworkServiceDetail":"{\"CRYPTO_TRANSMISSION\":1,\"CRYPTO_ADDRESSES\":1,\"CRYPTO_PAYMENT_REQUEST\":1,\"INTRA_USER\":1}","registerOtherComponentTotal":0,"registerOtherComponentDetail":"{}","vpnTotal":0,"vpnByNetworkServiceDetails":"{}"}
+
+furszy [11:27 AM] 
+no comparto en absoluto pero no es tema para charlar por acá :stuck_out_tongue:
+1 1 1 1 1 1  
+
+rart3001 [11:29 AM] 
+q es ese poco de caritas
+
+[11:29] 
+en este tiene ya una identidad
+
+[11:29] 
+{"pendingClientConnection":0,"registeredClientConnection":1,"registeredNetworkServiceTotal":4,"registeredNetworkServiceDetail":"{\"CRYPTO_TRANSMISSION\":1,\"CRYPTO_ADDRESSES\":1,\"CRYPTO_PAYMENT_REQUEST\":1,\"INTRA_USER\":1}","registerOtherComponentTotal":1,"registerOtherComponentDetail":"{\"ACTOR_INTRA_USER\":1}","vpnTotal":0,"vpnByNetworkServiceDetails":"{}"}

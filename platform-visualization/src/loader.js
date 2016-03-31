@@ -24,8 +24,8 @@ function Loader() {
      * @method findThemAll
      */
     this.findThemAll = function() {
-        for (var i = 0, l = table.length; i < l; i++) {
-            if (!table[i].found && table[i].code_level == "concept") {
+        for(var i = 0, l = table.length; i < l; i++) {
+            if(!table[i].found && table[i].code_level == "concept") {
                 var strIndex = "#" + i;
                 $(strIndex).append(getStamp());
             }

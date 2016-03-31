@@ -7,35 +7,35 @@ function getData() {
     var url = window.helper.getAPIUrl("comps");
     
     //url += "?env=development"; //When needed the development branch, for lab.fermat.org
-    
- $.ajax({
-        url: url,
-        method: "GET"
-    }).success(
-        function (lists) {
-        
-            window.loadMap(function() {
 
-                window.tileManager.JsonTile(function() {
+    window.helper.getCompsUser(function (list){ 
 
-                    window.preLoad(function() {
+        window.loadMap(function() {
 
-                        tileManager.fillTable(lists);
+            window.tileManager.JsonTile(function() {
 
-                        TWEEN.removeAll();
-                        window.logo.stopFade();
-                        init();
-                    });
+                window.preLoad(function() {
+
+                    window.tileManager.fillTable(list);
+                    TWEEN.removeAll();
+                    window.logo.stopFade();
+                    window.helper.hide('welcome', 1000, true);
+                    init();
+
                 });
             });
         });
+    });
 
+ 
 //Use when you don't want to connect to server
 /*setTimeout(function(){
         var l = JSON.parse(testData);
         
         window.preLoad(function() {
-        
+            
+            window.tileManager.JsonTile(function() {
+    
                 window.loadMap(function() {
                     tileManager.fillTable(l);
 
@@ -43,7 +43,8 @@ function getData() {
                     logo.stopFade();
                     init();
                 });
-            });
+            })
+        });
 
     }, 6000);*/
 }

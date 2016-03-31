@@ -39,7 +39,7 @@ button:active {
     z-index: 10;
 }
 
-#legendButton {
+#login, #logout {
     color: rgba(127,127,127,1);
     background: transparent;
     outline: 1px solid rgba(127,255,255,0.75);
@@ -52,12 +52,12 @@ button:active {
     z-index: 15;
 }
 
-#legendButton:active {
+#login:active, #logout:active {
     color: #000000;
     background-color: rgba(127,127,127,0.75);  
 }
 
-#legendButton:hover,.backButton:hover, .actionButton:hover  {
+#login:hover, #logout:hover,.backButton:hover, .actionButton:hover  {
     background-color: rgba(127,127,127,0.5);
 }
 
@@ -66,7 +66,12 @@ button:active {
     top : 40px;
     right : 10px;
     z-index: 10;
-    
+}
+#containerLogin{
+    position: fixed;
+    z-index: 1;
+    right: 40px;
+    display: block;
 }
 
 .backButton, .actionButton, #legend {
@@ -78,6 +83,8 @@ button:active {
     cursor: pointer;
 }
 
+
+
 .colorBox {
     width: 10px;
     height: 10px;
@@ -86,6 +93,93 @@ button:active {
     position: relative;
 }
 
+/**     START
+* @author Ricardo Delgado.
+* CSS FOR FERMAT EDIT FIELD. 
+*/
+
+#div-Edit1 {
+    
+    top: 0.5%;
+    position: relative;
+    width: 100%;
+    height: 5%;
+
+    display:box;
+    box-pack:center;
+    box-align:center;
+    
+    /* Firefox */
+    display:-moz-box;
+    -moz-box-pack:center;
+    -moz-box-align:center;
+
+    /* Chrome */
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+    
+}
+
+#div-Edit2 {
+    
+    position:relative;
+    display: inline-block;
+    width:100%;
+    height: 6%;
+
+    display:box;
+    box-pack:center;
+    box-align:center;
+    
+    display:-moz-box;
+    -moz-box-pack:center;
+    -moz-box-align:center;
+
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+    
+}
+
+#select-layer {
+    
+    width:18.3%;
+    
+}
+
+label.edit-Fermat {
+    
+    margin-left: 5px;
+    
+}
+
+select.edit-Fermat {
+    
+    -moz-appearance: none;
+    -webkit-appearance:none;
+    
+    background: url(images/select_arrow.png) no-repeat right;
+    border: 1px solid rgb(15, 184, 157);
+    color: rgba(127,127,127,1);
+    
+}
+
+input.edit-Fermat {
+    
+    border: 1px solid rgb(15, 184, 157);
+    color: rgba(127,127,127,1);
+    
+}
+
+/** 
+END
+*/
+
+/**     START
+* @author Ricardo Delgado.
+* CSS FOR THE BOOK. 
+*/ 
 .flipbook-viewport{
     position:absolute;
     top:50%;
@@ -185,30 +279,34 @@ button:active {
 }
 
 .table-contents span{
-	float:right;
+    float:right;
 }
 
 .table-contents a{
-	float:left;
-	width:100%;
-	clear:both;
-	text-decoration:none;
-	color:#333;
-	margin:0px auto;
+    float:left;
+    width:100%;
+    clear:both;
+    text-decoration:none;
+    color:#333;
+    margin:0px auto;
 }
 
 .table-contents a:hover{
-	background:#CAD1EE;
-	float:left;
-	width:100%;
-	clear:both;
-	text-decoration:none;
-	-webkit-border-radius:10px;
-	-moz-border-radius:10px;
-	-o-border-radius:10px;
-	-ms-border-radius:10px;
-	border-radius:10px;
+    background:#CAD1EE;
+    float:left;
+    width:100%;
+    clear:both;
+    text-decoration:none;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    -o-border-radius:10px;
+    -ms-border-radius:10px;
+    border-radius:10px;
 }
+
+/**     
+END
+*/ 
 
 @font-face {
     font-family: Canaro;
@@ -216,3 +314,386 @@ button:active {
     font-weight: normal;
     font-style: normal;
 }
+
+/**     START
+* @author Daril Rodriguez.
+* CSS FOR FERMAT EDIT MODAL AUTHORS.
+*/
+
+#hidden-area {
+    
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    
+}
+
+#modal-devs {
+    
+    z-index: 12;
+    width: 455px;
+    padding: 5px;
+    height: 372px;
+    display: none;
+    position: fixed;
+    background: #00b498;
+        
+}
+
+#modal-devs[data-state="hidden"] {
+    
+    opacity: 0;
+    display: none;
+    
+}
+
+#modal-devs[data-state="show"] {
+    
+    opacity: 1;
+    display: block;
+    
+}
+
+#modal-devs #a {
+    
+    width: 49%;
+    float: left;
+    margin-right: 2%;
+    
+}
+
+#modal-devs #a #finder {
+    
+    float: left;
+    width: 100%;
+    height: 43px;
+    padding-top: 10px;
+    
+}
+
+#modal-devs #a #finder input[type="text"] {
+    
+    width: 76%;
+    border: 0px;
+    float: left;
+    height: 29px;
+    margin-left: 5px;
+    background: #bbebe3;
+    
+}
+
+#modal-devs #a #finder input[type="button"] {
+    
+    width: 15%;
+    float: left;
+    border: 0px;
+    height: 32px;
+    padding: 19px;
+    margin-top: -3px; 
+    margin-left: 5px;
+    border-radius: 30px;
+    background:  no-repeat;
+    background-size: 22px 22px;
+    background-position: center;
+    background-image: url(images/modal/finder.png);
+    
+    transition: .5s all ease 0s;
+    -moz-transition: .5s all ease 0s;
+    -webkit-transition: .5s all ease 0s;
+}
+
+#modal-devs #a #finder input[type="button"]:hover {
+    
+    cursor: pointer;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    background-image: url(images/modal/finder.png);
+    
+}
+
+#modal-devs #a #list {
+    
+    width: 99%;
+    float: left;
+    height: 317px;
+    overflow: auto;
+    background: #bbebe3;
+    
+}
+
+#modal-devs .list-content {
+    
+    width: 100%;
+    float: left;
+    margin-right: 2px;
+    min-height: 100.5%;
+    background-color: #00000000;
+    
+}
+
+#modal-devs .dev-fermat-edit {
+	
+	padding: 2px;
+	height: 40px;
+	margin: 2px;
+    overflow: hidden;
+	background: rgba(0, 0, 0, 0.2);
+	
+    transition: .5s all ease 0s;
+    -moz-transition: .5s all ease 0s;
+    -webkit-transition: .5s all ease 0s;
+    
+}
+
+#modal-devs .dev-fermat-edit div img {
+
+	float: left;
+	width: 20%;
+
+}
+
+#modal-devs .dev-fermat-edit div label {
+
+	width: 59%;
+	float: left;
+	height: 100%;
+	margin-left: 2px;
+	font-family: sans-serif;
+	font-size: 11px;
+	
+}
+
+#modal-devs .dev-fermat-edit div .add_btn {
+	
+	border: 0;
+	width: 19%;
+	float: left;
+	height: 39px;
+	cursor: pointer;
+    border-radius: 39px;
+	background: no-repeat;
+    background-size: 50% ;
+	background-position: center;
+	background-image: url(images/modal/plus.png);
+    
+    transition: .5s all ease 0s;
+    -moz-transition: .5s all ease 0s;
+    -webkit-transition: .5s all ease 0s;
+
+}
+
+#modal-devs .dev-fermat-edit div .add_btn:hover {
+ 
+    cursor: pointer;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    
+}
+
+#modal-devs #b {
+    
+    width: 49%;
+    float: left;
+    height: 99.5%;
+    background: #00000000;
+    
+}
+
+#modal-devs #b #list {
+    
+    width: 99%;
+    float: left;
+    height: 94%;
+    overflow: auto;
+    background: #bbebe3;
+    
+}
+
+#modal-devs .dev-fermat-edit div .rem_btn {
+	
+	border: 0;
+	width: 19%;
+	float: left;
+	height: 39px;
+	cursor: pointer;
+    border-radius: 39px;
+	background: no-repeat;
+    background-size: 50% ;
+	background-position: center;
+	background-image: url(images/modal/minus.png);
+    
+    transition: .5s all ease 0s;
+    -moz-transition: .5s all ease 0s;
+    -webkit-transition: .5s all ease 0s;
+    
+}
+
+#modal-devs .dev-fermat-edit div .rem_btn:hover {
+ 
+    cursor: pointer;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    
+}
+
+#modal-devs #b #buttons {
+    
+    height: 5%;
+    width: 100%;
+    
+}
+
+#modal-devs #b #buttons button {
+    
+    border: 0;
+    width: 49%;
+    padding: 1.5px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 2px 0px 0 0;
+    font-family: sans-serif;
+    
+}
+
+#modal-devs #b .dev-fermat-edit div img:hover {
+    
+    cursor: pointer;
+	
+}
+
+#modal-devs .dev-fermat-edit[data-expand="true"] {
+    
+    height: 120px;
+    
+}
+
+#modal-devs .dev-fermat-edit .dev-data {
+    
+    padding-top: 30px;
+	font-family: sans-serif;
+	font-size: 12px;
+    
+}
+
+#modal-devs .dev-fermat-edit .dev-data input[type="text"]{
+    
+    border: 0;
+    margin: 2px;
+    border-radius: 0;
+    
+}
+
+#modal-devs .dev-fermat-edit .dev-data select{
+    
+    border: 0;
+    margin: 2px;
+    width: 139px;
+    border-radius: 0;
+    
+}
+
+/**
+* END
+*/
+
+/**     START
+* @author Daril Rodriguez.
+* CSS FOR FERMAT EDIT MODAL DESCRIPTION.
+*/
+
+#modal-desc {
+    
+    opacity: 0;
+    z-index: 12;
+    width: 45.5%;
+    padding: 8px;
+    background: #00cdad;
+    padding-bottom: 4px;
+    
+    position: absolute;
+    left: calc(50% - 22.7%);
+    
+}  
+
+#modal-desc[data-state="hidden"] {
+    
+    opacity: 0;
+    display: none;
+    
+}
+
+#modal-desc[data-state="show"] {
+    
+    opacity: 1;
+    display: block;
+    
+}
+
+#modal-desc label {
+    
+    color: #006053;
+    font-size: 14px;
+    font-family: uppercase;
+    
+}
+
+#modal-desc textarea {
+    
+    border: 0px;
+    width: 100%;
+    resize: none;
+    color: #006053;
+    font-size: 18px;
+    margin-top: 5px;
+    background: #daf0e9;
+    font-family: uppercase;
+    
+}
+
+#modal-desc div {
+    
+    width: 100%;
+    
+}
+
+#modal-desc div button{
+    
+    float: left;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: 49.5%;
+    cursor: pointer;
+    font-size: 12px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background: #daf0e9;
+    font-family: sans-serif;
+    
+}
+
+#modal-desc div #modal-desc-accept {
+    
+    float: right;
+    
+}
+
+#modal-desc div button:active {
+    
+    color: #000000;
+    border: none;
+    background-color: rgba(127,127,127,0.75);
+    
+}
+
+/**
+* END
+*/

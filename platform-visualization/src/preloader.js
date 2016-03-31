@@ -14,16 +14,16 @@ function preLoad(onLoadAll) {
         $("#progress-bar").width(percnt + '%');
     };
     
-    var loadImage = function (img) {
+    var loadImage = function(img) {
         
         var e = document.createElement('img');
 
-        e.onload = function () {
+        e.onload = function() {
 
             progressBar.loaded++;
             updateBar();
 
-            if (progressBar.loaded >= progressBar.max) {
+            if(progressBar.loaded >= progressBar.max) {
                 // once we get here, we are pretty much done, so redirect to the actual page
                 if(!finished) {
                     finished = true;
@@ -42,14 +42,14 @@ function preLoad(onLoadAll) {
     //Preload images
     $.ajax({
         url: "./json/images.json",
-        success: function (images) {
+        success: function(images) {
             'use strict';
 
             progressBar.max = images.length;
 
             var i = 0;
 
-            while (i < images.length) {
+            while(i < images.length) {
                 loadImage(images[i]);
                 i++;
             }

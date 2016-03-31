@@ -5,7 +5,7 @@
  * @param {Array}  tasks     An array of numbers containing all task ids
  * @param {Object} [container] Container of the created timeline
  */
-function Timeline ( tasks, container ) {
+function Timeline(tasks, container) {
     
     // Constants
     var CONCEPT_COLOR = 'rgba(170,170,170,1)',
@@ -19,88 +19,91 @@ function Timeline ( tasks, container ) {
     
     var id = 0;
     
-    for( var i = 0, tl = tasks.length; i < tl; i++ ) {
+    for(var i = 0, tl = tasks.length; i < tl; i++) {
         
-        var task = table[ tasks[i] ];
+        var task = window.helper.getSpecificTile(tasks[i]).data;
         
-        if ( task != null && task.life_cycle != null ) {
+        if(task != null && task.life_cycle != null) {
             
-            var schedule = task.life_cycle,
-                tile, wrap,
-                lastTarget = helper.parseDate( schedule[0].reached ),
-                lastReached = lastTarget;
-            
-            var canvas = document.createElement('canvas');
-            var oldCanvas = objects[tasks[i]].children[0].material.map.image;
-            canvas.width = oldCanvas.width;
-            canvas.height = oldCanvas.height;
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(oldCanvas, 0, 0);
-            
-            tile = canvas;
-            tile.style.position = 'relative';
-            tile.style.display = 'inline-block';
-            
-            this.groups.push ( {
-                id : i,
-                content : tile
-            });
-            
-            // First status marks the start point, not needed here
-            for( var j = 1, sl = schedule.length; j < sl; j++ ) {
+            if(task.life_cycle.length !== 0){
+
+                var schedule = task.life_cycle,
+                    tile, wrap,
+                    lastTarget = helper.parseDate(schedule[0].reached),
+                    lastReached = lastTarget;
                 
-                var itemColor,
-                    end,
-                    item;
-                    
-                switch(schedule[j-1].name) {
-                    case "Concept":
-                        itemColor = CONCEPT_COLOR; break;
-                    case "Development":
-                        itemColor = DEVEL_COLOR; break;
-                    case "QA":
-                        itemColor = QA_COLOR; break;
-                }
+                var canvas = document.createElement('canvas');
+                var oldCanvas = objects[tasks[i]].children[0].material.map.image;
+                canvas.width = oldCanvas.width;
+                canvas.height = oldCanvas.height;
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(oldCanvas, 0, 0);
                 
+                tile = canvas;
+                tile.style.position = 'relative';
+                tile.style.display = 'inline-block';
                 
-                // Planned
-                if(schedule[j].target !== '') {
-                    
-                    end = helper.parseDate( schedule[j].target );
-                    
-                    item = {
-                        id : id++,
-                        content : schedule[j-1].name + ' (plan)',
-                        start : lastTarget,
-                        end : end,
-                        group: i,
-                        subgroup: 'plan',
-                        style: 'background-color:' + itemColor
-                    };
-                    
-                    this.items.push( item );
-                    
-                    lastTarget = end;
-                }
+                this.groups.push({
+                    id : i,
+                    content : tile
+                });
                 
-                // Real
-                if(schedule[j].reached !== '') {
+                // First status marks the start point, not needed here
+                for(var j = 1, sl = schedule.length; j < sl; j++) {
                     
-                    end = helper.parseDate( schedule[j].reached );
+                    var itemColor,
+                        end,
+                        item;
+                        
+                    switch(schedule[j-1].name) {
+                        case "Concept":
+                            itemColor = CONCEPT_COLOR; break;
+                        case "Development":
+                            itemColor = DEVEL_COLOR; break;
+                        case "QA":
+                            itemColor = QA_COLOR; break;
+                    }
                     
-                    item = {
-                        id : id++,
-                        content : schedule[j-1].name + ' (real)',
-                        start : lastReached,
-                        end : end,
-                        group: i,
-                        subgroup: 'real',
-                        style: 'background-color:' + itemColor
-                    };
                     
-                    this.items.push( item );
+                    // Planned
+                    if(schedule[j].target !== '') {
+                        
+                        end = helper.parseDate(schedule[j].target);
+                        
+                        item = {
+                            id : id++,
+                            content : schedule[j-1].name + ' (plan)',
+                            start : lastTarget,
+                            end : end,
+                            group: i,
+                            subgroup: 'plan',
+                            style: 'background-color:' + itemColor
+                        };
+                        
+                        this.items.push(item);
+                        
+                        lastTarget = end;
+                    }
                     
-                    lastReached = end;
+                    // Real
+                    if(schedule[j].reached !== '') {
+                        
+                        end = helper.parseDate(schedule[j].reached);
+                        
+                        item = {
+                            id : id++,
+                            content : schedule[j-1].name + ' (real)',
+                            start : lastReached,
+                            end : end,
+                            group: i,
+                            subgroup: 'real',
+                            style: 'background-color:' + itemColor
+                        };
+                        
+                        this.items.push(item);
+                        
+                        lastReached = end;
+                    }
                 }
             }
         }
@@ -112,7 +115,7 @@ function Timeline ( tasks, container ) {
  * Hides and destroys the timeline
  * @param {Number} [duration=1000] Duration of fading in milliseconds
  */
-Timeline.prototype.hide = function ( duration ) {
+Timeline.prototype.hide = function(duration) {
     
     var _duration = duration || 1000;
     
@@ -124,14 +127,14 @@ Timeline.prototype.hide = function ( duration ) {
  * Shows the timeline in it's given container, if it was null, creates one at the bottom
  * @param {Number} [duration=2000] Duration of fading in milliseconds
  */
-Timeline.prototype.show = function ( duration ) {
+Timeline.prototype.show = function(duration) {
     
     var _duration = duration || 2000;
     
-    if ( this.groups.length !== 0 ) {
+    if(this.groups.length !== 0) {
         
-        if ( this.container == null ) {
-            this.container = document.createElement( 'div' );
+        if(this.container == null) {
+            this.container = document.createElement('div');
             this.container.id = 'timelineContainer';
             this.container.style.position = 'absolute';
             this.container.style.left = '0px';
@@ -144,16 +147,16 @@ Timeline.prototype.show = function ( duration ) {
             $('#container').append(this.container);
         }
         
-        var timeline = new vis.Timeline( this.container );
-        timeline.setOptions( { 
+        var timeline = new vis.Timeline(this.container);
+        timeline.setOptions({ 
             editable : false,
             minHeight : '100%',
             stack : false,
             align : 'center'
-        } );
-        timeline.setGroups( this.groups );
-        timeline.setItems( this.items );
+        });
+        timeline.setGroups(this.groups);
+        timeline.setItems(this.items);
         
-        $(this.container).fadeTo( _duration, 1 );
+        $(this.container).fadeTo(_duration, 1);
     }
 };

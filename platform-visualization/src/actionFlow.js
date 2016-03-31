@@ -74,7 +74,7 @@ function ActionFlow(flow) {
 
         window.scene.add(title);
 
-        if (indice === 0){
+        if(indice === 0){
 
             for(var i = 0, l = self.flow.steps.length; i < l; i++){
                 self.drawTree(self.flow.steps[i], initialX + COLUMN_SPACING * i, initialY, 0);
@@ -89,9 +89,8 @@ function ActionFlow(flow) {
             self.showSteps();
         }
 
-        else if (indice === 1){
+        else if(indice === 1)
             self.showAllFlow();
-        }
     };
 
     /**
@@ -111,15 +110,14 @@ function ActionFlow(flow) {
             direct: 0x0000FF
         };
 
-        if (typeof root.drawn === 'undefined'){
-
+        if(typeof root.drawn === 'undefined'){
 
             drawStep(root, x, y, z);
 
             var childCount = root.next.length,
                 startX = x - 0.5 * (childCount - 1) * COLUMN_SPACING;
 
-            if (childCount !== 0){
+            if(childCount !== 0){
 
                 var color = TYPE[root.next[0].type];
 
@@ -145,16 +143,16 @@ function ActionFlow(flow) {
                     [ x + X_OFFSET, y - ROW_SPACING / 2, -1]
                 ];
                 
-                var vertices = new Float32Array( vertexPositions.length * 3 );
+                var vertices = new Float32Array(vertexPositions.length * 3);
 
-                for ( var j = 0; j < vertexPositions.length; j++ )
+                for(var j = 0; j < vertexPositions.length; j++)
                 {
-                    vertices[ j*3 + 0 ] = vertexPositions[j][0];
-                    vertices[ j*3 + 1 ] = vertexPositions[j][1];
-                    vertices[ j*3 + 2 ] = vertexPositions[j][2];
+                    vertices[j*3 + 0] = vertexPositions[j][0];
+                    vertices[j*3 + 1] = vertexPositions[j][1];
+                    vertices[j*3 + 2] = vertexPositions[j][2];
                 }
 
-                lineGeo.addAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+                lineGeo.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
 
                 rootLine = new THREE.Line(lineGeo, lineMat);
                 origin = helper.getOutOfScreenPoint(-1);
@@ -192,9 +190,8 @@ function ActionFlow(flow) {
                         lineMat = new THREE.LineBasicMaterial({color : gradient.getHex()}); //gradient
                         nextY = child.drawn.y;
 
-                        if(nextX !== rootPoint.x && colides(nextX, root)) {
+                        if(nextX !== rootPoint.x && colides(nextX, root))
                             nextX += (childCount + 1) * COLUMN_SPACING;
-                        }
                     }
                     else {
                         lineMat = new THREE.LineBasicMaterial({color : color});
@@ -242,7 +239,6 @@ function ActionFlow(flow) {
     this.letAloneHeaderFlow = function() {
 
         animateFlows('steps', 'origin', false);
-
         animateFlows('flow', 'origin', true);
     };
 
@@ -306,7 +302,7 @@ function ActionFlow(flow) {
 
             if(typeof used[node.element] !== 'undefined') {
 
-                tile = window.objects[node.element].clone();
+                tile = window.helper.getSpecificTile(node.element).mesh.clone();
                 tile.isClone = true;
 
                 objectsStep.position.origin.push(window.helper.getOutOfScreenPoint(1));
@@ -317,7 +313,7 @@ function ActionFlow(flow) {
             }
             else {
 
-                tile = window.objects[node.element];
+                tile = window.helper.getSpecificTile(node.element).mesh;
                 used[node.element] = true;
 
                 new TWEEN.Tween(tile.position)
@@ -363,7 +359,8 @@ function ActionFlow(flow) {
         for(var i = 0; i < self.flow.steps.length; i++) {
             actual = self.flow.steps[i];
 
-            if(actual.drawn && actual.drawn.x === x && actual !== from) return true;
+            if(actual.drawn && actual.drawn.x === x && actual !== from)
+                return true;
         }
 
         return false;
@@ -493,9 +490,9 @@ function ActionFlow(flow) {
 
                 objectsStep = { mesh : [], position :{ target : [], origin : [] } };
 
-                for(var _i = 0, _l = self.flow.steps.length; _i < _l; _i++)
-
+                for(var _i = 0, _l = self.flow.steps.length; _i < _l; _i++){
                     delete self.flow.steps[_i].drawn;
+                }
             }
         }
         else{
@@ -527,7 +524,7 @@ function ActionFlow(flow) {
                     z: target.z
                 }, duration)
                 .easing(TWEEN.Easing.Cubic.InOut)
-                .onComplete(function () {
+                .onComplete(function() {
                     if(!visible)
                         window.scene.remove(object);    
                 })
@@ -552,7 +549,8 @@ function ActionFlow(flow) {
             actual = self.flow.steps[i];
 
             //Should not be done, the id in 'next' and in each step should be the same type (strings)
-            if(actual.id == id) return actual;
+            if(actual.id == id)
+                return actual;
         }
 
         return null;

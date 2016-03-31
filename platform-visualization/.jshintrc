@@ -49,5 +49,7 @@
         "FlowManager" : true,
         "ActionFlow" : true,
         "ButtonsManager" : true
+        "tableEdit" : true,
+        "fieldsEdit" : true
     }
 }

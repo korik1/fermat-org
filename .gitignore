@@ -1,6 +1,11 @@
 .idea/
 **/.idea/
+secret.json
 api-server/node_modules/
+api-server/deploy.json
+api-server/build/secret.json
+api-server/secret.json
+api-server/FermatBitcoin.pem
 api-server/**/node_modules/
 api-server/cache/production/fermat/
 api-server/cache/production/files/
@@ -11,4 +16,5 @@ api-server/cache/development/filecache.json
 platform-visualization/common.php
 platform-visualization/src/getData.js
 platform-visualization/main.js
+platform-visualization/wp/
 sh.exe.stackdump
