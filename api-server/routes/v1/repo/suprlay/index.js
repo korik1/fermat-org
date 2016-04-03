@@ -13,6 +13,7 @@ var security = require('../../../../lib/utils/security');
  * @param  {[type]} next  [description]
  *
  * @return {[type]} [description]
+ ..
  */
 var lock = function (req, next) {
 	console.log('doing lock...');

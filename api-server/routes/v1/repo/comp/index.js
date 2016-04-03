@@ -137,9 +137,15 @@ router.get('/', function (req, res, next) {
  * @apiGroup Repo-Comp
  * @apiDescription updates the lifecycle of a component of the architecture fermat.
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 0a761e81343359954052a5a6ce99531e1628d12d
+=======
+=======
+
+>>>>>>> upstream/master
+>>>>>>> 285f774088618743bbc6852f318e095e54d4f3fd
  */
 router.put('/:comp_id/life-cicles/:life_cicle_id', function (req, res, next) {
 	'use strict';
